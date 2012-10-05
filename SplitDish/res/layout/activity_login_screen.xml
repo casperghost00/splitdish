@@ -3,12 +3,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
+    <EditText
+        android:id="@+id/username_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world"
-        tools:context=".LoginScreen" />
+        android:layout_marginTop="73dp"
+        android:ems="10"
+        android:hint="@string/username_hint" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/password_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/username_text"
+        android:layout_below="@+id/username_text"
+        android:layout_marginTop="17dp"
+        android:ems="10"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword" />
+
+    <CheckBox
+        android:id="@+id/stay_signed_in_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/password_text"
+        android:layout_below="@+id/password_text"
+        android:text="@string/stay_logged_in" />
+
+    <Button
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/password_text"
+        android:layout_below="@+id/stay_signed_in_check"
+        android:text="@string/signin_button" />
+
+    <TextView
+        android:id="@+id/sign_up_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/sign_in_button"
+        android:layout_alignBottom="@+id/sign_in_button"
+        android:layout_alignLeft="@+id/stay_signed_in_check"
+        android:layout_marginLeft="18dp"
+        android:clickable="true"
+        android:onClick="signUp"
+        android:text="@string/sign_up" />
 
 </RelativeLayout>
