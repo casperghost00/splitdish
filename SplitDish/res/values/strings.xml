@@ -11,5 +11,6 @@
     <string name="stay_logged_in">Keep me logged in</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_login_dialog">LoginDialog</string>
 
 </resources>

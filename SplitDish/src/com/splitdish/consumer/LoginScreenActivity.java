@@ -1,6 +1,7 @@
 package com.splitdish.consumer;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,7 +24,8 @@ public class LoginScreenActivity extends Activity {
     }
     
     public void sendCredentials(View v) {
-    	
+    	ProgressDialog dialog = ProgressDialog.show(this, "","");
+    	dialog.show();
     }
     
     public void signUp(View v) {
@@ -34,3 +36,5 @@ public class LoginScreenActivity extends Activity {
     	startActivity(intent);
     }
 }
+
+
