@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ public class LoginScreenActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
+        doneKeyLogin(); //Done key from password EditText begins login
     }
 
     @Override
@@ -91,10 +94,7 @@ public class LoginScreenActivity extends Activity {
 		loginDialog.dismiss();
 
 		if(result==true) {
-			Intent intent = new Intent(this, SignUpActivity.class);
-	    	EditText usernameText = (EditText) findViewById(R.id.username_text);
-	    	String username = usernameText.getText().toString();
-	    	intent.putExtra(USERNAME_TEXT, username);
+			Intent intent = new Intent(this, HomeActivity.class);
 	    	startActivity(intent);
 		}
 		else {
@@ -120,6 +120,37 @@ public class LoginScreenActivity extends Activity {
 			}
 		}
 		return correct_creds;
+	}
+	
+	public void forgotPassword(View v) {
+		//TODO Implement forgotten password methods
+		Context context = getApplicationContext();
+		CharSequence text = "Password Recovery Not Yet Implemented";
+		int duration = Toast.LENGTH_SHORT;
+		
+		Toast toast = Toast.makeText(context, text, duration);
+		toast.show();
+	}
+	
+	private void doneKeyLogin() {
+		EditText passwordText = (EditText) findViewById(R.id.password_text);
+        passwordText.setOnKeyListener(new OnKeyListener() {
+        	public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_ENTER:
+                            sendCredentials(null);
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
 	}
 }
 

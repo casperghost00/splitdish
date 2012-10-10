@@ -56,4 +56,26 @@
         android:text="@string/sign_up"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <TextView
+        android:id="@+id/forgot_password_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="21dp"
+        android:text="@string/forgot_password"
+        android:clickable="true"
+        android:onClick="forgotPassword"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/username_text"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="54dp"
+        android:text="@string/sign_in_prompt"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 </RelativeLayout>

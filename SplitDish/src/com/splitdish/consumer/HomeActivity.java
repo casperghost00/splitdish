@@ -1,31 +1,23 @@
 package com.splitdish.consumer;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
+import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.support.v4.app.NavUtils;
 
-public class SignUpActivity extends Activity {
+public class HomeActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_home);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        
-        Intent intent = getIntent();
-        String username = intent.getStringExtra(LoginScreenActivity.USERNAME_TEXT);
-        
-        TextView usernameView = (TextView) findViewById(R.id.signup_username);
-        usernameView.setText(username);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_sign_up, menu);
+        getMenuInflater().inflate(R.menu.activity_home, menu);
         return true;
     }
 
