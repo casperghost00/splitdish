@@ -46,7 +46,7 @@ public class HomeActivity extends Activity {
     
     public void tableSearch(View v) {
     	Context context = getApplicationContext();
-		CharSequence text = "Find Your Table";
+		CharSequence text = "Find Your Table.";
 		int duration = Toast.LENGTH_SHORT;
 
 		Toast toast = Toast.makeText(context, text, duration);
