@@ -96,6 +96,7 @@ public class LoginScreenActivity extends Activity {
 		if(result==true) {
 			Intent intent = new Intent(this, HomeActivity.class);
 	    	startActivity(intent);
+	    	finish();
 		}
 		else {
 			Context context = getApplicationContext();
