@@ -9,16 +9,21 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Scanner;
 
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnKeyListener;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,10 +32,13 @@ public class LoginScreenActivity extends Activity {
 	public final static String USERNAME_TEXT = "com.splitdish.consumer.USERNAME_TEXT";
 	public String username;
 	public String password;
+	public String keepSignedIn;
 	public ProgressDialog loginDialog;
+	public String authtoken;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkToken();
         setContentView(R.layout.activity_login_screen);
         doneKeyLogin(); //Done key from password EditText begins login
     }
@@ -54,7 +62,12 @@ public class LoginScreenActivity extends Activity {
     	username = usernameText.getText().toString();
     	EditText passwordText = (EditText) findViewById(R.id.password_text);
     	password = passwordText.getText().toString();
-    	new LoginTask().execute(username,password);
+    	CheckBox stayLogged = (CheckBox) findViewById(R.id.stay_signed_in_check);
+    	if(stayLogged.isChecked())
+    		keepSignedIn = Boolean.valueOf(true).toString(); 
+    	else
+    		keepSignedIn = Boolean.valueOf(false).toString();
+    	new LoginTask().execute(username,password,keepSignedIn);
     	
     }
     
@@ -66,10 +79,10 @@ public class LoginScreenActivity extends Activity {
     	startActivity(intent);
     }
     private class LoginTask extends AsyncTask<String,String,Boolean> {
-    	class loginInfo {
+    	class LoginInfo {
     		String info;
     		boolean success;
-    		public loginInfo(boolean success, String info) {
+    		public LoginInfo(boolean success, String info) {
     			this.success = success;
     			this.info = info;
     		}
@@ -82,16 +95,12 @@ public class LoginScreenActivity extends Activity {
     	
     	@Override
     	public Boolean doInBackground(String... params) {
-    		/*try {
-    			Thread.sleep(2000);
-    		}
-    		catch (InterruptedException e) {
-    			e.printStackTrace();
-    		}
-    		return checkCredentials(params[0],params[1]);
-    		*/
-    		loginInfo result = remoteLogin(params[0],params[1]);
-    		if(result.success == false)
+    		
+    		LoginInfo result = remoteLogin(params[0],params[1]);
+    		// If stay checked in box is selected
+    		if(result.success && params[2] == Boolean.toString(true)) 
+    			saveToken(result);
+    		if(!result.success)
     			publishProgress(result.info);
     		return result.success;
     	}
@@ -107,7 +116,7 @@ public class LoginScreenActivity extends Activity {
     		completeLogin(result);
     	}
     	
-    	public loginInfo remoteLogin(String username, String password) {
+    	private LoginInfo remoteLogin(String username, String password) {
     		URL url;
     		HttpURLConnection conn;
     		
@@ -137,19 +146,34 @@ public class LoginScreenActivity extends Activity {
     			//process the stream and store it in StringBuilder
     			while(inStream.hasNextLine())
     			response+=(inStream.nextLine());
-    			return new loginInfo(true,response);
+    			return new LoginInfo(true,response);
     		}
     		//catch some error
     		catch(MalformedURLException ex) {  
-    			return new loginInfo(false,"MalformedURL");
+    			return new LoginInfo(false,"MalformedURL");
     		}
     		catch(SocketTimeoutException ex) {
-    			return new loginInfo(false,"Unable to Connect");
+    			return new LoginInfo(false,"Unable to Connect");
     		}
     		// and some more
     		catch(IOException ex) {
-    			return new loginInfo(false,"Invalid Username/Password");
+    			return new LoginInfo(false,"Invalid Username/Password");
     		}
+    	}
+    	
+    	private int saveToken(LoginInfo result) {
+    		String token = "";
+    		try {
+	    		JSONObject jObject = new JSONObject(result.info);
+	    		token = jObject.getString("token");
+    		}
+    		catch(Exception e) {
+    			return -1;
+    		}
+    		
+    		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    		prefs.edit().putString("authentication_token", token).commit();
+    		return 0;
     	}
     }
 	public void startProgress() {
@@ -205,7 +229,14 @@ public class LoginScreenActivity extends Activity {
         });
 	}
 	
-	
+	private void checkToken() {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        authtoken = prefs.getString("authentication_token", null);
+        if(authtoken != null) {
+        	Intent intent = new Intent(this, HomeActivity.class);
+	    	startActivity(intent);
+        }
+	}
 }
 
 
