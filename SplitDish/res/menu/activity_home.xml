@@ -4,6 +4,11 @@
         android:orderInCategory="100"
         android:showAsAction="never" />
     
+    <item android:id="@+id/menu_logout"
+        android:title="@string/menu_logout"
+        android:orderInCategory="110"
+        android:showAsAction="never" />
+    
     <item android:id="@+id/action_search"
           android:title="@string/action_bar_search"
           android:icon="@android:drawable/ic_menu_search"

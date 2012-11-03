@@ -30,11 +30,12 @@ import android.widget.Toast;
 public class LoginScreenActivity extends Activity {
 
 	public final static String USERNAME_TEXT = "com.splitdish.consumer.USERNAME_TEXT";
+	public final static String AUTH_TOKEN = "com.splitdish.consumer.AUTH_TOKEN";
 	public String username;
 	public String password;
 	public String keepSignedIn;
 	public ProgressDialog loginDialog;
-	public String authtoken;
+	public String auth_token;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,8 +99,8 @@ public class LoginScreenActivity extends Activity {
     		
     		LoginInfo result = remoteLogin(params[0],params[1]);
     		// If stay checked in box is selected
-    		if(result.success && params[2] == Boolean.toString(true)) 
-    			saveToken(result);
+    		if(result.success) 
+    			saveToken(result,params[2] == Boolean.toString(true));
     		if(!result.success)
     			publishProgress(result.info);
     		return result.success;
@@ -161,22 +162,22 @@ public class LoginScreenActivity extends Activity {
     		}
     	}
     	
-    	private int saveToken(LoginInfo result) {
-    		String token = "";
+    	private int saveToken(LoginInfo result, boolean persist) {
     		try {
 	    		JSONObject jObject = new JSONObject(result.info);
-	    		token = jObject.getString("token");
+	    		auth_token = jObject.getString("token");
     		}
     		catch(Exception e) {
     			return -1;
     		}
-    		
-    		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-    		prefs.edit().putString("authentication_token", token).commit();
+    		if(persist) {
+	    		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+	    		prefs.edit().putString("authentication_token", auth_token).commit();
+    		}
     		return 0;
     	}
     }
-	public void startProgress() {
+	private void startProgress() {
 		loginDialog = new ProgressDialog(this);
 		loginDialog.setMessage("Logging in...");
     	loginDialog.show();
@@ -188,6 +189,7 @@ public class LoginScreenActivity extends Activity {
 
 		if(result==true) {
 			Intent intent = new Intent(this, HomeActivity.class);
+			intent.putExtra(AUTH_TOKEN, auth_token);
 	    	startActivity(intent);
 	    	finish();
 		}
@@ -231,10 +233,12 @@ public class LoginScreenActivity extends Activity {
 	
 	private void checkToken() {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        authtoken = prefs.getString("authentication_token", null);
-        if(authtoken != null) {
+        auth_token = prefs.getString("authentication_token", null);
+        if(auth_token != null) {
         	Intent intent = new Intent(this, HomeActivity.class);
+        	intent.putExtra(AUTH_TOKEN, auth_token);
 	    	startActivity(intent);
+	    	finish();
         }
 	}
 }
