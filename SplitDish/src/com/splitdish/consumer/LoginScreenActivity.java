@@ -39,7 +39,7 @@ public class LoginScreenActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkToken();
+        skipCheckToken();
         setContentView(R.layout.activity_login_screen);
         doneKeyLogin(); //Done key from password EditText begins login
     }
@@ -230,7 +230,11 @@ public class LoginScreenActivity extends Activity {
             }
         });
 	}
-	
+	private void skipCheckToken() {
+		Intent intent = new Intent(this, HomeActivity.class);
+		startActivity(intent);
+		finish();
+	}
 	private void checkToken() {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         auth_token = prefs.getString("authentication_token", null);
