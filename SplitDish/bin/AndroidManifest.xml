@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.splitdish.consumer"
     android:versionCode="1"
@@ -6,20 +7,23 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="15" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:icon="@drawable/ic_launcher_splitdish_draft5"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
-         >
-         <!-- android:theme="@style/splitdish" -->
+        android:theme="@android:style/Theme.Holo" >
+
+        <!-- android:theme="@android:style/Theme.Holo.Light.DarkActionBar" > -->
+        <!-- android:theme="@style/splitdish" -->
         <activity
-            android:name=".LoginScreenActivity"
+            android:name="com.splitdish.consumer.LoginScreenActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
-            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name="com.splitdish.consumer.SignUpActivity"
             android:label="@string/title_activity_sign_up"
             android:screenOrientation="portrait" >
             <meta-data
@@ -35,9 +39,21 @@
                 android:value="com.splitdish.consumer.LoginScreenActivity" />
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name="com.splitdish.consumer.HomeActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.splitdish.consumer.GetTicketActivity"
+            android:label="@string/title_activity_get_ticket" >
+        </activity>
+        <activity
+            android:name="com.splitdish.consumer.LeadOrJoinActivity"
+            android:label="@string/title_activity_lead_or_join" >
+        </activity>
+        <activity
+            android:name="com.splitdish.consumer.ChooseVenueActivity"
+            android:label="@string/title_activity_choose_venue" >
         </activity>
     </application>
 

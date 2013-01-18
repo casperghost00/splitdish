@@ -1,50 +1,59 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_gravity="center"
+    android:columnCount="3"
+    android:orientation="horizontal" >
+
+    <Space
+        android:layout_height="50dp"
+        android:layout_row="0" />
     
-    <GridLayout
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:columnCount="2"
-		android:orientation="horizontal">
+        android:layout_column="0"
+        android:layout_gravity="left"
+        android:layout_row="1"
+        android:drawableTop="@drawable/ic_splitdish128"
+        android:text="@string/start_splitting"
+        android:clickable="true"
+        android:onClick="startSplitting" />
 
-        <ImageView
-            android:layout_column="0"
-            android:src="@drawable/ic_launcher_splitdish_draft5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <ImageView
-            android:src="@drawable/fork_knife"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <ImageView
-            android:src="@drawable/user_group_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <ImageView
-            android:src="@drawable/folder_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+    <Space
+        android:layout_width="40dp"
+        android:layout_column="1" />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:layout_gravity="right"
+        android:layout_row="1"
+        android:drawableTop="@drawable/fork_knife"
+        android:text="@string/order_ahead"
+        android:clickable="true"
+        android:onClick="orderAhead" />
 
-        <Button
-            android:text="@string/test_button" />
-        
-        <Button
-            android:text="@string/test_button" />
-        
-        <Button
-            android:text="@string/test_button" />
-        
-        <Button
-            android:text="@string/test_button" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_row="2"
+        android:drawableTop="@drawable/user_group_icon"
+        android:text="@string/create_party"
+        android:clickable="true"
+        android:onClick="createParty" />
 
-    </GridLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="2"
+        android:layout_row="2"
+        android:drawableTop="@drawable/folder_icon" 
+        android:text="@string/view_dishcard"
+        android:clickable="true"
+        android:onClick="viewDishCard" />
 
-</LinearLayout>
+</GridLayout>

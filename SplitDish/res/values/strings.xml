@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">SplitDish</string>
@@ -18,5 +19,14 @@
     <string name="select_restaurant">Select Your Restaurant:</string>
     <string name="menu_logout">Sign Out</string>
     <string name="test_button">Test</string>
+    <string name="start_splitting">Start Splitting</string>
+    <string name="order_ahead">Order Ahead</string>
+    <string name="title_activity_get_ticket">Get Ticket</string>
+    <string name="create_party">Create Party</string>
+    <string name="view_dishcard">View DishCard</string>
+    <string name="title_activity_lead_or_join">Party</string>
+    <string name="lead_party">Create Party</string>
+    <string name="join_party">Join Party</string>
+    <string name="title_activity_choose_venue">ChooseVenueActivity</string>
 
 </resources>

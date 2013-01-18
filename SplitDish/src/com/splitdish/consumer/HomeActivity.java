@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -157,5 +158,31 @@ public class HomeActivity extends Activity {
 			return 2;
 		}
     }
+    public void startSplitting(View v) {
+    	Intent intent = new Intent(this, LeadOrJoinActivity.class);
+    	startActivity(intent);
+    }
+    
+    public void orderAhead(View v) {
+    	notYetImplemented();
+    }
+    
+    public void createParty(View v) {
+    	notYetImplemented();
+    }
+    
+    public void viewDishCard(View v) {
+    	notYetImplemented();
+    }
+    
+    private void notYetImplemented() {
+    	Context context = getApplicationContext();
+		CharSequence text = "Feature Not Yet Implemented";
+		int duration = Toast.LENGTH_SHORT;
+		
+		Toast toast = Toast.makeText(context, text, duration);
+		toast.show();
+    }
+    
 
 }
