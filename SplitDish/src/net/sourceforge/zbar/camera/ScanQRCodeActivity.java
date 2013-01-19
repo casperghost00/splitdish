@@ -12,6 +12,7 @@ import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
@@ -28,8 +29,9 @@ import android.widget.TextView;
 import com.splitdish.consumer.R;
 /* Import ZBar Class files */
 
-public class CameraTestActivity extends Activity
+public class ScanQRCodeActivity extends Activity
 {
+	public final static String QR_DATA = "com.splitdish.consumer.QR_DATA";
     private Camera mCamera;
     private CameraPreview mPreview;
     private Handler autoFocusHandler;
@@ -67,20 +69,6 @@ public class CameraTestActivity extends Activity
 
         scanText = (TextView)findViewById(R.id.scanText);
 
-        scanButton = (Button)findViewById(R.id.ScanButton);
-
-        scanButton.setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    if (barcodeScanned) {
-                        barcodeScanned = false;
-                        scanText.setText("Scanning...");
-                        mCamera.setPreviewCallback(previewCb);
-                        mCamera.startPreview();
-                        previewing = true;
-                        mCamera.autoFocus(autoFocusCB);
-                    }
-                }
-            });
     }
 
     public void onPause() {
@@ -129,10 +117,14 @@ public class CameraTestActivity extends Activity
                     mCamera.setPreviewCallback(null);
                     mCamera.stopPreview();
                     
+                    Intent intent = new Intent();
                     SymbolSet syms = scanner.getResults();
                     for (Symbol sym : syms) {
-                        scanText.setText("barcode result " + sym.getData());
-                        barcodeScanned = true;
+                    	String qr_data = sym.getData();
+                        scanText.setText(qr_data);
+                        intent.putExtra(QR_DATA, qr_data);
+                        setResult(Activity.RESULT_OK, intent);
+                        finish();
                     }
                 }
             }

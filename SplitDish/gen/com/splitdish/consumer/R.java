@@ -27,22 +27,21 @@ public final class R {
         public static final int user_group_icon=0x7f020009;
     }
     public static final class id {
-        public static final int ScanButton=0x7f090002;
-        public static final int action_search=0x7f09000f;
+        public static final int action_search=0x7f09000e;
         public static final int cameraPreview=0x7f090000;
-        public static final int create_party_button=0x7f090004;
-        public static final int forgot_password_text=0x7f09000a;
-        public static final int join_party_button=0x7f090003;
-        public static final int menu_logout=0x7f09000e;
-        public static final int menu_settings=0x7f09000d;
-        public static final int password_text=0x7f090006;
+        public static final int create_party_button=0x7f090003;
+        public static final int forgot_password_text=0x7f090009;
+        public static final int join_party_button=0x7f090002;
+        public static final int menu_logout=0x7f09000d;
+        public static final int menu_settings=0x7f09000c;
+        public static final int password_text=0x7f090005;
         public static final int scanText=0x7f090001;
-        public static final int sign_in_button=0x7f090008;
-        public static final int sign_up_text=0x7f090009;
-        public static final int signup_username=0x7f09000c;
-        public static final int stay_signed_in_check=0x7f090007;
-        public static final int username_text=0x7f090005;
-        public static final int welcome_text=0x7f09000b;
+        public static final int sign_in_button=0x7f090007;
+        public static final int sign_up_text=0x7f090008;
+        public static final int signup_username=0x7f09000b;
+        public static final int stay_signed_in_check=0x7f090006;
+        public static final int username_text=0x7f090004;
+        public static final int welcome_text=0x7f09000a;
     }
     public static final class layout {
         public static final int activity_camera_scan=0x7f030000;
