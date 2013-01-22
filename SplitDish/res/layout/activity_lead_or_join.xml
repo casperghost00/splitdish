@@ -21,6 +21,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="74dp"
         android:text="@string/lead_party" 
-        android:onClick="qrScan" />
+        android:onClick="mapSearch" />
 
 </RelativeLayout>

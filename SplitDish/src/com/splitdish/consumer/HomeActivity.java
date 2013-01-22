@@ -163,6 +163,11 @@ public class HomeActivity extends Activity {
     	startActivity(intent);
     }
     
+    public void scanReceipt(View v) {
+    	Intent intent = new Intent(this, GetTicketFromScanActivity.class);
+    	startActivity(intent);
+    }
+    
     public void orderAhead(View v) {
     	notYetImplemented();
     }

@@ -28,5 +28,8 @@
     <string name="lead_party">Create Party</string>
     <string name="join_party">Join Party</string>
     <string name="title_activity_choose_venue">ChooseVenueActivity</string>
+    <string name="scan_receipt">Scan Receipt</string>
+    <string name="title_activity_get_ticket_from_scan">GetTicketFromScanActivity</string>
+    <string name="title_activity_place_search">PlaceSearchActivity</string>
 
 </resources>
