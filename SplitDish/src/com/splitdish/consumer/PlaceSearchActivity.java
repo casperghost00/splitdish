@@ -3,7 +3,6 @@ package com.splitdish.consumer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 
@@ -13,42 +12,71 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class PlaceSearchActivity extends Activity {
+public class PlaceSearchActivity extends ListActivity {
 
-	public final static String PLACE_INTENT = "com.splitdish.consumer.PLACE_INTENT";
-	public final static String PLACE = "com.splitdish.consumer.PLACE";
+	public final static String PLACES_INTENT = "com.splitdish.consumer.PLACE_INTENT";
+	public final static String PLACES = "com.splitdish.consumer.PLACE";
+	
+	static final String[] FRUITS = new String[] { "Apple", "Avocado", "Banana",
+		"Blueberry", "Coconut", "Durian", "Guava", "Kiwifruit",
+		"Jackfruit", "Mango", "Olive", "Pear", "Sugar-apple" };
+	
+	LocalBroadcastManager lbcManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_place_search);
+		//setContentView(R.layout.activity_place_search);
 		
-		new PlaceSearchTask().execute();
+		lbcManager = LocalBroadcastManager.getInstance(this);
 		
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_place_search,FRUITS));
+		 
+		ListView listView = getListView();
+		listView.setTextFilterEnabled(true);
+ 
+		listView.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+			    // When clicked, show a toast with the TextView text
+			    Toast.makeText(getApplicationContext(),
+				((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+			}
+		});
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		LocalBroadcastManager.getInstance(this).registerReceiver(placesReceiver, new IntentFilter(PLACE_INTENT));
+		lbcManager.registerReceiver(placesReceiver, new IntentFilter(PLACES_INTENT));
+		
+		new PlaceSearchTask().execute();
 	}
 	
 	private BroadcastReceiver placesReceiver = new BroadcastReceiver() {
 		  @Override
 		  public void onReceive(Context context, Intent intent) {
 		    // Get extra data included in the Intent
-		    GooglePlaceList gplaces = intent.getParcelableExtra(PLACE);
+		    GooglePlaceList gplaces = intent.getParcelableExtra(PLACES);
 		    Log.d("receiver", "Got PlaceList: " + gplaces.get(0).name);
 		  }
 		};
@@ -82,7 +110,7 @@ public class PlaceSearchActivity extends Activity {
     	
     	@Override
     	public void onProgressUpdate(String... values) {
-    		
+
     	}
     	
     	@Override
@@ -94,8 +122,11 @@ public class PlaceSearchActivity extends Activity {
 	    		Log.d("JSON", String.valueOf(g.latitude));
 	    		Log.d("JSON", String.valueOf(g.longitude));
     		}
-    		
 
+    		Intent placesIntent = new Intent(PLACES_INTENT);
+    		placesIntent.putExtra(PLACES, (Parcelable)result);
+    		
+    		lbcManager.sendBroadcast(placesIntent);
     	}
     	
     	private GooglePlaceList searchPlaces() {

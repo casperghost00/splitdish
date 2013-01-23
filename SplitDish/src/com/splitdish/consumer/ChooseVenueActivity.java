@@ -1,7 +1,7 @@
 package com.splitdish.consumer;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
 
 public class ChooseVenueActivity extends Activity {
