@@ -49,8 +49,18 @@ public class PlaceSearchActivity extends ListActivity {
 		
 		lbcManager = LocalBroadcastManager.getInstance(this);
 		
+		
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		lbcManager.registerReceiver(placesReceiver, new IntentFilter(PLACES_INTENT));
+		
+		new PlaceSearchTask().execute();
+		
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_place_search,FRUITS));
-		 
+		
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
  
@@ -62,14 +72,6 @@ public class PlaceSearchActivity extends ListActivity {
 				((TextView) view).getText(), Toast.LENGTH_SHORT).show();
 			}
 		});
-	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		lbcManager.registerReceiver(placesReceiver, new IntentFilter(PLACES_INTENT));
-		
-		new PlaceSearchTask().execute();
 	}
 	
 	private BroadcastReceiver placesReceiver = new BroadcastReceiver() {

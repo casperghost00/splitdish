@@ -27,14 +27,14 @@ public class LeadOrJoinActivity extends Activity {
 		return true;
 	}
 	
-	public void mapSearch(View v) {
+	public void placesSearch(View v) {
 		Intent intent = new Intent(this, PlaceSearchActivity.class);
 		startActivity(intent);
 	}
 	
-	public void qrScan(View v) {
-		Intent intent = new Intent(this, ScanQRCodeActivity.class);
-		startActivityForResult(intent, SCAN_QR_CODE);
+	public void mapSearch(View v) {
+		Intent intent = new Intent(this, MapActivity.class);
+		startActivity(intent);
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {

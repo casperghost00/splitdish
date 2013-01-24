@@ -11,7 +11,8 @@
         android:layout_below="@+id/create_party_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp"
-        android:text="@string/join_party" />
+        android:text="@string/join_party"
+        android:onClick="mapSearch" />
 
     <Button
         android:id="@+id/create_party_button"
@@ -21,6 +22,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="74dp"
         android:text="@string/lead_party" 
-        android:onClick="mapSearch" />
+        android:onClick="placeSearch" />
 
 </RelativeLayout>
