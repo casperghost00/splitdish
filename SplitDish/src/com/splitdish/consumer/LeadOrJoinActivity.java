@@ -27,7 +27,7 @@ public class LeadOrJoinActivity extends Activity {
 		return true;
 	}
 	
-	public void placesSearch(View v) {
+	public void placeSearch(View v) {
 		Intent intent = new Intent(this, PlaceSearchActivity.class);
 		startActivity(intent);
 	}

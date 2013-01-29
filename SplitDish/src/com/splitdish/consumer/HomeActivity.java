@@ -159,7 +159,7 @@ public class HomeActivity extends Activity {
 		}
     }
     public void startSplitting(View v) {
-    	Intent intent = new Intent(this, LeadOrJoinActivity.class);
+    	Intent intent = new Intent(this, ItemSelectionActivity.class);
     	startActivity(intent);
     }
     
@@ -173,7 +173,8 @@ public class HomeActivity extends Activity {
     }
     
     public void createParty(View v) {
-    	notYetImplemented();
+    	Intent intent = new Intent(this, LeadOrJoinActivity.class);
+    	startActivity(intent);
     }
     
     public void viewDishCard(View v) {
