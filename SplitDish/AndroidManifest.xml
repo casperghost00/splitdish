@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.splitdish.consumer"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="17" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <permission
+        android:name="com.splitdish.consumer.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.splitdish.consumer.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher_splitdish_draft5"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo" >
+        <activity
+            android:name="com.splitdish.consumer.LoginScreenActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.splitdish.consumer.SignUpActivity"
+            android:label="@string/title_activity_sign_up"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.splitdish.consumer.LoginScreenActivity" />
+        </activity>
+        <activity
+            android:name="com.splitdish.consumer.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.splitdish.consumer.GetTicketActivity"
+            android:label="@string/title_activity_get_ticket" >
+        </activity>
+        <activity
+            android:name="com.splitdish.consumer.LeadOrJoinActivity"
+            android:label="@string/title_activity_lead_or_join" >
+        </activity>
+        <activity
+            android:name="com.splitdish.consumer.ChooseVenueActivity"
+            android:label="@string/title_activity_choose_venue" >
+        </activity>
+        <activity
+            android:name="net.sourceforge.zbar.camera.ScanQRCodeActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.splitdish.consumer.GetTicketFromScanActivity"
+            android:label="@string/title_activity_get_ticket_from_scan" >
+        </activity>
+        <activity
+            android:name="com.splitdish.consumer.PlaceSearchActivity"
+            android:label="@string/title_activity_place_search" >
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyCKslvHA0DocFw_zBEAxqrwFroVF-jzGc0" />
+
+        <activity
+            android:name="com.splitdish.consumer.MapActivity"
+            android:label="@string/title_activity_map" >
+        </activity>
+        <activity
+            android:name="com.splitdish.consumer.ItemSelectionActivity"
+            android:label="@string/title_activity_item_selection" >
+        </activity>
+    </application>
+
+</manifest>

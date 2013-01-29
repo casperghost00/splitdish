@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -35,10 +37,10 @@ public class PlaceSearchActivity extends ListActivity {
 
 	public final static String PLACES_INTENT = "com.splitdish.consumer.PLACE_INTENT";
 	public final static String PLACES = "com.splitdish.consumer.PLACE";
-	
-	static final String[] FRUITS = new String[] { "Apple", "Avocado", "Banana",
-		"Blueberry", "Coconut", "Durian", "Guava", "Kiwifruit",
-		"Jackfruit", "Mango", "Olive", "Pear", "Sugar-apple" };
+	private static final ArrayList<String> FRUITS = new ArrayList<String>(Arrays.asList("Apple", "Avocado", "Banana",
+			"Blueberry", "Coconut", "Durian", "Guava", "Kiwifruit",
+			"Jackfruit", "Mango", "Olive", "Pear", "Sugar-apple"));
+	private ArrayAdapter<String> adapter;
 	
 	LocalBroadcastManager lbcManager;
 	
@@ -59,7 +61,9 @@ public class PlaceSearchActivity extends ListActivity {
 		
 		new PlaceSearchTask().execute();
 		
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.activity_place_search,FRUITS));
+		
+		adapter = new ArrayAdapter<String>(this, R.layout.activity_place_search,FRUITS);
+		setListAdapter(adapter);
 		
 		ListView listView = getListView();
 		listView.setTextFilterEnabled(true);
@@ -69,10 +73,17 @@ public class PlaceSearchActivity extends ListActivity {
 					int position, long id) {
 			    // When clicked, show a toast with the TextView text
 			    Toast.makeText(getApplicationContext(),
-				((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+				((TextView) view).getText()+" "+position, Toast.LENGTH_SHORT).show();
+			    
+			    //FRUITS.remove(position);
+			    
+			    //adapter.notifyDataSetChanged();
+			    
 			}
 		});
 	}
+	
+
 	
 	private BroadcastReceiver placesReceiver = new BroadcastReceiver() {
 		  @Override
