@@ -16,9 +16,9 @@ public class TicketAdapter extends ArrayAdapter<TicketItem> {
     int layoutResourceId;    
     List<TicketItem> items = null;
 	
-	public TicketAdapter(Context context, int resource, int textViewResourceId,
+	public TicketAdapter(Context context, int textViewResourceId,
 			List<TicketItem> items) {
-		super(context, resource, textViewResourceId, items);
+		super(context, textViewResourceId, items);
 		this.context = context;
 		this.layoutResourceId = textViewResourceId;
 		this.items = items;
