@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnKeyListener;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -36,7 +36,7 @@ public class CheckOutActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_check_out);
 
-		doneKeyTip();
+		initializeTips();
 		
 		Intent intent = getIntent();
 		
@@ -45,7 +45,7 @@ public class CheckOutActivity extends Activity {
 			selectedItems.get(i).selected=false;
 			subtotal += selectedItems.get(i).price;
 		}
-		taxtotal = ((Double)(subtotal * taxRate)).intValue()+1; 
+		taxtotal = ((Double)(subtotal * taxRate)).intValue(); 
 		total = subtotal + taxtotal + tiptotal;
 		
 	}
@@ -74,17 +74,17 @@ public class CheckOutActivity extends Activity {
 	    });
 	    
 	    TextView subtotalView = (TextView)findViewById(R.id.subtotalNum);
-	    subtotalView.setText("$"+String.format("%6.2f", subtotal/100.0));
+	    subtotalView.setText("$"+String.format("%.2f", subtotal/100.0));
 	    
 	    TextView taxView = (TextView)findViewById(R.id.taxNum);
-	    taxView.setText("$"+String.format("%6.2f", taxtotal/100.0));
+	    taxView.setText("$"+String.format("%.2f", taxtotal/100.0));
 	    
 	    TextView totalView = (TextView)findViewById(R.id.totalText);
-	    totalView.setText("Total: $"+String.format("%6.2f", total/100.0));
+	    totalView.setText("Total: $"+String.format("%.2f", total/100.0));
 
 	}
 	
-	private void doneKeyTip() {
+	private void initializeTips() {
 		final EditText percTipText = (EditText) findViewById(R.id.tipPercentNum);
 		final EditText totalTipText = (EditText) findViewById(R.id.tipTotalNum);
 		
@@ -100,7 +100,7 @@ public class CheckOutActivity extends Activity {
                     tiptotal = ((Double)(subtotal * 
                     		Double.parseDouble(ptip) / 100.0))
                     		.intValue()+1;
-                    totalTipText.setText(String.format("$%6.2f", tiptotal/100.0));
+                    totalTipText.setText(String.format("$%.2f", tiptotal/100.0));
                     percTipText.setText(ptip+"%");
             		inputManager.toggleSoftInput(0, 0);
                     refreshTotal();
@@ -117,7 +117,7 @@ public class CheckOutActivity extends Activity {
 		        	String ttip = totalTipText.getText().toString().replace("$","");
 		        	
                     tiptotal = ((Double)Double.parseDouble(ttip)).intValue()*100;
-                    percTipText.setText(String.format("%6.2f", tiptotal/(double)subtotal*100.0)+"%");
+                    percTipText.setText(String.format("%.2f", tiptotal/(double)subtotal*100.0)+"%");
                     totalTipText.setText("$"+ttip);
                     refreshTotal();
             		inputManager.toggleSoftInput(0, 0);
@@ -126,13 +126,60 @@ public class CheckOutActivity extends Activity {
                 return false;
             }
         });
+		percTipText.addTextChangedListener(new TextWatcher(){
+	        @Override
+			public void afterTextChanged(Editable s) {
+	        	
+	        }
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				String ptip = percTipText.getText().toString().replace("%","");
+	        	
+                tiptotal = ((Double)(subtotal * 
+                		Double.parseDouble(ptip) / 100.0))
+                		.intValue()+1;
+                totalTipText.setText(String.format("$%.2f", tiptotal/100.0));
+        		inputManager.toggleSoftInput(0, 0);
+                refreshTotal();
+			}
+		});
+		totalTipText.addTextChangedListener(new TextWatcher(){
+	        @Override
+			public void afterTextChanged(Editable s) {
+	        	
+	        }
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				String ttip = totalTipText.getText().toString().replace("$","");
+	        	
+                tiptotal = ((Double)Double.parseDouble(ttip)).intValue()*100;
+                percTipText.setText(String.format("%.2f", tiptotal/(double)subtotal*100.0)+"%");
+                refreshTotal();
+			}
+		});
 	}
 	
 	private void refreshTotal() {
 		total = subtotal + taxtotal + tiptotal;
 		
 		TextView totalView = (TextView)findViewById(R.id.totalText);
-	    totalView.setText("Total: $"+String.format("%6.2f", total/100.0));
+	    totalView.setText("Total: $"+String.format("%.2f", total/100.0));
 	}
 
 }

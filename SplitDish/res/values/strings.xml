@@ -34,7 +34,7 @@
     <string name="title_activity_place_search">PlaceSearchActivity</string>
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_item_selection">Ticket</string>
-    <string name="title_activity_check_out">CheckOutActivity</string>
+    <string name="title_activity_check_out">Make Payment</string>
     <string-array name="mock_credit_cards_array">
         <item>Visa: XXXX-4154</item>
         <item>AmEx: XXXX-11421</item>

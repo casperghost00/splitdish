@@ -50,7 +50,7 @@ public class TicketAdapter extends ArrayAdapter<TicketItem> {
         TicketItem ticket = items.get(position);
         holder.textTitle.setText(ticket.title);
         holder.textNotes.setText(ticket.notes);
-        holder.textPrice.setText(String.format("%6.2f", ticket.price/100.0));
+        holder.textPrice.setText(String.format("%.2f", ticket.price/100.0));
         if(ticket.selected == true) {
         	row.setBackgroundResource(R.drawable.border_highlight);
         }

@@ -13,4 +13,5 @@
     <color name="orangedark">#BB6008</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
+    <color name="highlight_blue">#8edcff</color>
 </resources>

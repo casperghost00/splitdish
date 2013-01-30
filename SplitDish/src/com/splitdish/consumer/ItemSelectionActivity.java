@@ -72,7 +72,7 @@ public class ItemSelectionActivity extends Activity {
 	        	itemPressed(parent,view,position,id);
 	        	
 	        	TextView tv = (TextView)findViewById(R.id.subtotalText);
-	        	tv.setText("Subtotal: $"+String.format("%6.2f", subtotal/100.0));
+	        	tv.setText("Subtotal: $"+String.format("%.2f", subtotal/100.0));
 			    //FRUITS.remove(position);
 			    
 			    //adapter.notifyDataSetChanged();
