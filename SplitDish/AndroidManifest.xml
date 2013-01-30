@@ -90,6 +90,12 @@
             android:name="com.splitdish.consumer.ItemSelectionActivity"
             android:label="@string/title_activity_item_selection" >
         </activity>
+        <activity
+            android:name="com.splitdish.consumer.CheckOutActivity"
+            android:label="@string/title_activity_check_out"
+            android:windowSoftInputMode="stateHidden" >
+            
+        </activity>
     </application>
 
 </manifest>

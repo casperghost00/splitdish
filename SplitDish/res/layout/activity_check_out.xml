@@ -1,0 +1,145 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Spinner
+        android:id="@+id/creditCardSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="25dp"
+        android:layout_weight="0"
+        android:entries="@array/mock_credit_cards_array" />
+    <RelativeLayout
+        android:id="@+id/checkoutSubtotalLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp" >
+	    <TextView
+	        android:id="@+id/checkoutSubtotalText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="16sp"
+	        android:text="Subtotal : " />
+	    <TextView 
+	        android:id="@+id/subtotalNum"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true"
+	        android:textSize="16sp"
+	        android:text="$ 0.00" />
+	</RelativeLayout>
+	<RelativeLayout
+        android:id="@+id/checkoutTaxLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp" >
+	    <TextView
+	        android:id="@+id/checkoutTaxText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:textSize="16sp"
+	        android:text="Tax : " />
+	    <TextView 
+	        android:id="@+id/taxNum"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true"
+	        android:textSize="16sp"
+	        android:text="$ 0.00" />
+	</RelativeLayout>
+	<RelativeLayout
+        android:id="@+id/checkoutTipLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="25dp" >
+	    <TextView
+	        android:id="@+id/checkoutTipText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginRight="15dp"
+	        android:textSize="16sp"
+	        android:text="Tip : " />
+		
+	    <LinearLayout
+	        android:id="@+id/internalTipLayout"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:orientation="horizontal" >
+	        
+		    <EditText
+		        android:id="@+id/tipPercentNum"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:hint="%"
+		        android:inputType="numberDecimal"
+		        android:imeOptions="actionDone"
+		        android:selectAllOnFocus="true" />
+		    
+	       	<TextView
+		        android:id="@+id/orText"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textSize="16sp"
+		        android:text=" or " />
+	        
+		    <EditText
+		        android:id="@+id/tipTotalNum"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:hint="0.00"
+		        android:inputType="numberDecimal"
+		        android:imeOptions="actionDone"
+		        android:selectAllOnFocus="true" />
+		</LinearLayout>
+	</RelativeLayout>
+	<ListView 
+	    android:id="@+id/itemRecapListView"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_weight="1"
+	    android:layout_marginLeft="25dp"
+	    android:layout_marginRight="25dp"
+	    android:layout_marginTop="20dp"
+	    android:layout_marginBottom="20dp" />
+	<RelativeLayout
+        android:id="@+id/totalLayout"
+        android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="0"
+		android:background="#336699">
+	    <TextView
+	        android:id="@+id/totalText"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:gravity="left"
+	        android:textStyle="bold"
+	        android:textSize="22sp"
+	        android:textColor="#FFFFFF"
+	        android:padding="10dp"
+	        android:text="Total: $ 0.00" />
+
+	    <Button
+	        android:id="@+id/submitPaymentButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:text="Submit Payment"
+	        android:onClick="" />
+
+     </RelativeLayout>
+</LinearLayout>

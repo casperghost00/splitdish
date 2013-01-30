@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,10 +17,10 @@ import android.widget.TextView;
 
 public class ItemSelectionActivity extends Activity {
 
-	private static final ArrayList<String> FRUITS = new ArrayList<String>(Arrays.asList("Apple", "Avocado", "Banana",
-			"Blueberry", "Coconut", "Durian", "Guava", "Kiwifruit",
-			"Jackfruit", "Mango", "Olive", "Pear", "Sugar-apple"));
+	
+	private static final String SELECTED_ITEMS = "com.splitdish.consumer.SELECTED_ITEMS";
 	private List<TicketItem> items;
+	private TicketItemList selectedItems;
 	private TicketAdapter adapter;
 	private ListView listView1;
 	private int subtotal = 0;
@@ -29,6 +31,7 @@ public class ItemSelectionActivity extends Activity {
 		setContentView(R.layout.activity_item_selection);
 		
 		items = new ArrayList<TicketItem>();
+		selectedItems = new TicketItemList();
 		
 		items.add(new TicketItem("Chicken Parmesan", "","Hold the Chicken",1499));
 		items.add(new TicketItem("Chicken n Waffles","","Double Syrup",2999));
@@ -68,7 +71,7 @@ public class ItemSelectionActivity extends Activity {
 			    
 	        	itemPressed(parent,view,position,id);
 	        	
-	        	TextView tv = (TextView)findViewById(R.id.subTotal);
+	        	TextView tv = (TextView)findViewById(R.id.subtotalText);
 	        	tv.setText("Subtotal: $"+String.format("%6.2f", subtotal/100.0));
 			    //FRUITS.remove(position);
 			    
@@ -84,13 +87,21 @@ public class ItemSelectionActivity extends Activity {
 	    	view.setBackgroundResource(R.drawable.border_highlight);
 	    	subtotal+=item.price;
 	    	item.selected = true;
+	    	selectedItems.add(item);
 	    }
 	    else {
 	    	view.setBackgroundResource(R.color.transparent);
 	    	subtotal-=item.price;
 	    	item.selected = false;
+	    	selectedItems.remove(item);
 
 	    }
+	}
+	
+	public void checkOut(View v) {
+		Intent intent = new Intent(this, CheckOutActivity.class);
+		intent.putExtra(SELECTED_ITEMS, (Parcelable)selectedItems);
+    	startActivity(intent);
 	}
 
 }
