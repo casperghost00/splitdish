@@ -67,8 +67,6 @@ public class ScanQRCodeActivity extends Activity
         FrameLayout preview = (FrameLayout)findViewById(R.id.cameraPreview);
         preview.addView(mPreview);
 
-        scanText = (TextView)findViewById(R.id.scanText);
-
     }
 
     public void onPause() {

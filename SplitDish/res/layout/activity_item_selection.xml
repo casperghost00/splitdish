@@ -5,9 +5,35 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"> 
     
+    <TextView android:id="@+id/itemHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"
+        android:text="Items Ordered"
+        android:background="#336699" />
+    
      <ListView
         android:id="@+id/listView1"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+     
+     <TextView
+         android:id="@+id/subTotal"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_weight="0"
+         android:gravity="left|center"
+         android:textStyle="bold"
+        android:textSize="22sp"
+        android:textColor="#FFFFFF"
+        android:padding="10dp"
+        android:text="Subtotal: $ 0.00"
+        android:background="#336699" />
      
 </LinearLayout>

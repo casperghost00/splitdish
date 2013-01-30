@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ItemSelectionActivity extends Activity {
 
@@ -22,6 +21,7 @@ public class ItemSelectionActivity extends Activity {
 	private List<TicketItem> items;
 	private TicketAdapter adapter;
 	private ListView listView1;
+	private int subtotal = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +30,20 @@ public class ItemSelectionActivity extends Activity {
 		
 		items = new ArrayList<TicketItem>();
 		
-		items.add(new TicketItem("Chicken Parmesan", "","Hold the Chicken",14.99));
-		items.add(new TicketItem("Chicken n Waffles","","Double Syrup",29.99));
-		items.add(new TicketItem("Waldorf Salad","","Extra Girly",12.99));
+		items.add(new TicketItem("Chicken Parmesan", "","Hold the Chicken",1499));
+		items.add(new TicketItem("Chicken n Waffles","","Double Syrup",2999));
+		items.add(new TicketItem("Waldorf Salad","","Extra Girly",1299));
+		items.add(new TicketItem("Barbeque Chopped Chicken Salad","","",1399));
+		items.add(new TicketItem("Calamari","","",999));
+		items.add(new TicketItem("Long Island Iced Tea","","",799));
+		items.add(new TicketItem("Dr. Pepper","","",299));
+		items.add(new TicketItem("Apple Crumble","","",799));
+		items.add(new TicketItem("Hot Fudge Sundae","","",499));
+		items.add(new TicketItem("H3 Pinot Noir","","",1199));
+		items.add(new TicketItem("H3 Merlot","","Extra Large Glass",1099));
+		items.add(new TicketItem("Protein Shake", "", "Muscle Milk",499));
+		items.add(new TicketItem("Hot Fudge Sundae","","",499));
+		items.add(new TicketItem("H3 Pinot Noir","","",1199));
 	}
 
 	@Override
@@ -50,26 +61,36 @@ public class ItemSelectionActivity extends Activity {
 		
 		listView1 = (ListView)findViewById(R.id.listView1);
 		
-		View header = (View)getLayoutInflater().inflate(R.layout.ticket_header_row, null);
-		listView1.addHeaderView(header);
 		listView1.setAdapter(adapter);
- 
-		listView1.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				if(position > 0) {
-				    // When clicked, show a toast with the TextView text
-				    Toast.makeText(getApplicationContext(),
-				    		parent.getItemAtPosition(position).toString()+" "+position,
-				    		Toast.LENGTH_SHORT).show();
-				    
-				    //FRUITS.remove(position);
-				    
-				    //adapter.notifyDataSetChanged();
-				}
+		
+	    listView1.setOnItemClickListener(new OnItemClickListener() {
+	        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {			    
 			    
-			}
-		});
+	        	itemPressed(parent,view,position,id);
+	        	
+	        	TextView tv = (TextView)findViewById(R.id.subTotal);
+	        	tv.setText("Subtotal: $"+String.format("%6.2f", subtotal/100.0));
+			    //FRUITS.remove(position);
+			    
+			    //adapter.notifyDataSetChanged();
+        	
+            }
+	    });
+	}
+	
+	private void itemPressed(AdapterView<?> parent, View view, int position, long id) {
+		TicketItem item = adapter.getItem(position);
+		if(item.selected == false) {
+	    	view.setBackgroundResource(R.drawable.border_highlight);
+	    	subtotal+=item.price;
+	    	item.selected = true;
+	    }
+	    else {
+	    	view.setBackgroundResource(R.color.transparent);
+	    	subtotal-=item.price;
+	    	item.selected = false;
+
+	    }
 	}
 
 }

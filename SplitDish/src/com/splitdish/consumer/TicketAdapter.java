@@ -36,8 +36,9 @@ public class TicketAdapter extends ArrayAdapter<TicketItem> {
             row = inflater.inflate(layoutResourceId, parent, false);
             
             holder = new TicketItemHolder();
-            holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
-            holder.txtNotes = (TextView)row.findViewById(R.id.txtNotes);
+            holder.textTitle = (TextView)row.findViewById(R.id.textTitle);
+            holder.textNotes = (TextView)row.findViewById(R.id.textNotes);
+            holder.textPrice = (TextView)row.findViewById(R.id.textPrice); 
             
             row.setTag(holder);
         }
@@ -47,15 +48,23 @@ public class TicketAdapter extends ArrayAdapter<TicketItem> {
         }
         
         TicketItem ticket = items.get(position);
-        holder.txtTitle.setText(ticket.title);
-        holder.txtNotes.setText(ticket.notes);
+        holder.textTitle.setText(ticket.title);
+        holder.textNotes.setText(ticket.notes);
+        holder.textPrice.setText(String.format("%6.2f", ticket.price/100.0));
+        if(ticket.selected == true) {
+        	row.setBackgroundResource(R.drawable.border_highlight);
+        }
+        else {
+        	row.setBackgroundResource(R.color.transparent);
+        }
         
         return row;
     }
 
 	static class TicketItemHolder {
-		TextView txtTitle;
-		TextView txtNotes;
+		TextView textTitle;
+		TextView textNotes;
+		TextView textPrice;
 	}
 	
 }

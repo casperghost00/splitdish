@@ -25,6 +25,7 @@
     <string name="create_party">Create Party</string>
     <string name="view_dishcard">View DishCard</string>
     <string name="title_activity_lead_or_join">Party</string>
+    <string name="title_activity_scan_qr">Scan Receipt</string>
     <string name="lead_party">Create Party</string>
     <string name="join_party">Join Party</string>
     <string name="title_activity_choose_venue">ChooseVenueActivity</string>
