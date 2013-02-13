@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class HomeActivity extends FragmentActivity implements ActionBar.TabListener {
@@ -137,11 +139,30 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
+        	
+        	RelativeLayout relLayout = new RelativeLayout(getActivity());
+        	
+        	relLayout.setBackgroundColor(getResources().getColor(R.color.Black));
+        	
             TextView textView = new TextView(getActivity());
             textView.setGravity(Gravity.CENTER);
+            
             Bundle args = getArguments();
+            
             textView.setText(Integer.toString(args.getInt(ARG_SECTION_NUMBER)));
-            return textView;
+            textView.setTextColor(getResources().getColor(R.color.White));
+
+            ImageView iView = new ImageView(getActivity());
+            iView.setImageResource(R.drawable.square_table);            
+
+        	relLayout.addView(textView);
+        	relLayout.addView(iView);
+        	
+
+            iView.getLayoutParams().height = 100;
+            iView.getLayoutParams().width = 100;
+        	
+            return relLayout;
         }
     }
 }
