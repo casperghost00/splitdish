@@ -1,0 +1,32 @@
+{
+   "timestamp":"2.14.2013",
+   "floor_layout": [
+   {
+      "title":"Dining Room",
+      "zoom":"close",
+      "tables": [
+      {
+         "name":"1",
+         "shape":"square",
+         "size":"4",
+         "coordinates":
+         {
+            "x-co":"3",
+            "y-co":"4"
+         }
+      },
+      {
+         "name":"2",
+         "shape":"square",
+         "size":"4",
+         "coordinates":
+         {
+            "x-co":"1",
+            "y-co":"7"
+         }
+      }]
+   }]
+}
+      
+          
+       

@@ -1,5 +1,16 @@
 package com.splitdish.pos;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -13,7 +24,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.GridLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,6 +42,7 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+    static String jsonFloorLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +79,12 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
                     actionBar.newTab()
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
+        }
+        try {
+        	jsonFloorLayout = getJSONFromRawResource();
+        }
+        catch(IOException e) {
+        	e.getStackTrace();
         }
     }
 
@@ -144,25 +162,58 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
         	
         	relLayout.setBackgroundColor(getResources().getColor(R.color.Black));
         	
-            TextView textView = new TextView(getActivity());
-            textView.setGravity(Gravity.CENTER);
+            //TextView textView = new TextView(getActivity());
+            //textView.setGravity(Gravity.CENTER);
             
-            Bundle args = getArguments();
             
-            textView.setText(Integer.toString(args.getInt(ARG_SECTION_NUMBER)));
-            textView.setTextColor(getResources().getColor(R.color.White));
+            JSONObject jFloorLayout;
+            FloorMap fMap = null;
+            
+            try {
+            	jFloorLayout = new JSONObject(jsonFloorLayout);
+                fMap = new FloorMap(jFloorLayout);
+            }
+            catch(JSONException e)
+            {
+            	e.printStackTrace();
+            }
+            
+            String[] areaTitles = fMap.getAreaTitles();
+            GridLayout floorGrid = fMap.getAreaLayout(getActivity(), areaTitles[0]);
 
-            ImageView iView = new ImageView(getActivity());
-            iView.setImageResource(R.drawable.square_table);            
+            //Bundle args = getArguments();
+            //textView.setText(Integer.toString(args.getInt(ARG_SECTION_NUMBER)));
+            //textView.setTextColor(getResources().getColor(R.color.White));
 
-        	relLayout.addView(textView);
-        	relLayout.addView(iView);
+            //ImageView iView = new ImageView(getActivity());
+            //iView.setImageResource(R.drawable.square_table);            
+
+        	//relLayout.addView(textView);
+        	//relLayout.addView(iView);
+        	relLayout.addView(floorGrid);
         	
 
-            iView.getLayoutParams().height = 100;
-            iView.getLayoutParams().width = 100;
+            //iView.getLayoutParams().height = 100;
+            //iView.getLayoutParams().width = 100;
         	
             return relLayout;
         }
+    }
+    
+    public String getJSONFromRawResource() throws IOException{
+	    InputStream is = getResources().openRawResource(R.raw.floor_layout);
+	    Writer writer = new StringWriter();
+	    char[] buffer = new char[2048];
+	    try {
+	        Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+	        int n;
+	        while ((n = reader.read(buffer)) != -1) {
+	            writer.write(buffer, 0, n);
+	        }
+	    } finally {
+	        is.close();
+	    }
+	
+	    return writer.toString();
     }
 }
