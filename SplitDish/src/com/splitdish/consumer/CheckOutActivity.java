@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -29,6 +30,7 @@ public class CheckOutActivity extends Activity {
 	private int taxtotal = 0;
 	private int tiptotal = 0;
 	private int total = 0;
+	private Context activity;
 	
 	
 	@Override
@@ -39,6 +41,7 @@ public class CheckOutActivity extends Activity {
 		initializeTips();
 		
 		Intent intent = getIntent();
+		activity = this;
 		
 		selectedItems = intent.getParcelableExtra(SELECTED_ITEMS);
 		for(int i=0;i<selectedItems.size();i++) {
@@ -141,14 +144,18 @@ public class CheckOutActivity extends Activity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				String ptip = percTipText.getText().toString().replace("%","");
-	        	
-                tiptotal = ((Double)(subtotal * 
-                		Double.parseDouble(ptip) / 100.0))
-                		.intValue()+1;
-                totalTipText.setText(String.format("$%.2f", tiptotal/100.0));
-        		inputManager.toggleSoftInput(0, 0);
-                refreshTotal();
+				if(((Activity)activity).getCurrentFocus() == percTipText) {
+					String ptip = percTipText.getText().toString().replace("%","");
+		        	try {
+		                tiptotal = ((Double)(subtotal * 
+		                		Double.parseDouble(ptip) / 100.0))
+		                		.intValue()+1;
+		        	} catch(NumberFormatException e) {
+		        		tiptotal = 0;
+		        	}
+	                totalTipText.setText(String.format("$%.2f", tiptotal/100.0));
+	                refreshTotal();
+				}
 			}
 		});
 		totalTipText.addTextChangedListener(new TextWatcher(){
@@ -166,11 +173,16 @@ public class CheckOutActivity extends Activity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				String ttip = totalTipText.getText().toString().replace("$","");
-	        	
-                tiptotal = ((Double)Double.parseDouble(ttip)).intValue()*100;
-                percTipText.setText(String.format("%.2f", tiptotal/(double)subtotal*100.0)+"%");
-                refreshTotal();
+				if(((Activity)activity).getCurrentFocus() == totalTipText) {
+					String ttip = totalTipText.getText().toString().replace("$","");
+		        	try {
+		        		tiptotal = ((Double)Double.parseDouble(ttip)).intValue()*100;
+		        	} catch(NumberFormatException e) {
+		        		tiptotal = 0;
+		        	}
+	                percTipText.setText(String.format("%.2f", tiptotal/(double)subtotal*100.0)+"%");
+	                refreshTotal();
+				}
 			}
 		});
 	}
