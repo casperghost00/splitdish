@@ -15,7 +15,9 @@
         android:textColor="#FFFFFF"
         android:padding="10dp"
         android:text="Items Ordered"
-        android:background="#336699" />
+        android:background="#336699"
+        android:clickable="true"
+        android:onClick="selectAll" />
     
      <ListView
         android:id="@+id/listView1"
@@ -39,7 +41,7 @@
 	        android:textSize="22sp"
 	        android:textColor="#FFFFFF"
 	        android:padding="10dp"
-	        android:text="Subtotal: $ 0.00" />
+	        android:text="Subtotal: $0.00" />
 
 	    <Button
 	        android:id="@+id/checkoutButton"

@@ -24,6 +24,7 @@ public class ItemSelectionActivity extends Activity {
 	private TicketAdapter adapter;
 	private ListView listView1;
 	private int subtotal = 0;
+	private boolean allSelected = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +72,7 @@ public class ItemSelectionActivity extends Activity {
 			    
 	        	itemPressed(parent,view,position,id);
 	        	
-	        	TextView tv = (TextView)findViewById(R.id.subtotalText);
-	        	tv.setText("Subtotal: $"+String.format("%.2f", subtotal/100.0));
+	        	refreshSubtotal();
 			    //FRUITS.remove(position);
 			    
 			    //adapter.notifyDataSetChanged();
@@ -81,27 +81,74 @@ public class ItemSelectionActivity extends Activity {
 	    });
 	}
 	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		
+		selectedItems.clear();
+	}
+	
 	private void itemPressed(AdapterView<?> parent, View view, int position, long id) {
 		TicketItem item = adapter.getItem(position);
 		if(item.selected == false) {
 	    	view.setBackgroundResource(R.drawable.border_highlight);
 	    	subtotal+=item.price;
 	    	item.selected = true;
-	    	selectedItems.add(item);
 	    }
 	    else {
 	    	view.setBackgroundResource(R.color.transparent);
 	    	subtotal-=item.price;
 	    	item.selected = false;
-	    	selectedItems.remove(item);
 
 	    }
 	}
 	
 	public void checkOut(View v) {
+		
+		for(int i=0; i<items.size(); i++) {
+			if(items.get(i).selected) {
+				selectedItems.add(items.get(i));
+			}
+		}
+		
 		Intent intent = new Intent(this, CheckOutActivity.class);
 		intent.putExtra(SELECTED_ITEMS, (Parcelable)selectedItems);
     	startActivity(intent);
 	}
+	
+	public void selectAll(View v) {
+		allSelected = allSelected ? false : true;
+		for(int i=0; i<items.size(); i++) {
+			TicketItem item = items.get(i);
+			if(allSelected) {
+				if(item.selected == false)
+					subtotal+=item.price;
+				item.selected = true;
+				
+			}
+			else {
+				if(item.selected) {
+					subtotal-=item.price;
+				}
+				item.selected = false;
+				
+			}
+		}
+		refreshSubtotal();
+		for(int i=0; i<listView1.getChildCount(); i++) {
+		    View item = (View)listView1.getChildAt(i);
+		    if(allSelected) {
+		    	item.setBackgroundResource(R.drawable.border_highlight);
+		    }
+		    else {
+		    	item.setBackgroundResource(R.color.transparent);
+		    }
+		}
+	}
 
+	private void refreshSubtotal() {
+
+    	TextView tv = (TextView)findViewById(R.id.subtotalText);
+    	tv.setText("Subtotal: $"+String.format("%.2f", subtotal/100.0));
+	}
 }

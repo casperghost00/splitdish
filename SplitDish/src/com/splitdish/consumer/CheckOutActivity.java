@@ -96,14 +96,18 @@ public class CheckOutActivity extends Activity {
 		        if (actionId == EditorInfo.IME_ACTION_DONE) {
 
 		        	String ptip = percTipText.getText().toString().replace("%","");
-		        	
-                    tiptotal = ((Double)(subtotal * 
-                    		Double.parseDouble(ptip) / 100.0))
-                    		.intValue()+1;
-                    totalTipText.setText(String.format("$%.2f", tiptotal/100.0));
-                    percTipText.setText(ptip+"%");
-            		inputManager.toggleSoftInput(0, 0);
+		        	if(isNumber(ptip)) {
+	                    tiptotal = ((Double)(subtotal * 
+	                    		Double.parseDouble(ptip) / 100.0))
+	                    		.intValue()+1;
+	                    totalTipText.setText(String.format("$%.2f", tiptotal/100.0));
+	                    percTipText.setText(ptip+"%");
+		        	}
+		        	else {
+		        		tiptotal = 0;
+		        	}
                     refreshTotal();
+            		inputManager.toggleSoftInput(0, 0);
                     
                     return true;
                 }
@@ -116,61 +120,73 @@ public class CheckOutActivity extends Activity {
 
 		        	String ttip = totalTipText.getText().toString().replace("$","");
 		        	
-                    tiptotal = ((Double)Double.parseDouble(ttip)).intValue()*100;
-                    percTipText.setText(String.format("%.2f", tiptotal/(double)subtotal*100.0)+"%");
-                    totalTipText.setText("$"+ttip);
-                    refreshTotal();
+		        	if(isNumber(ttip)) {
+	                    tiptotal = ((Double)Double.parseDouble(ttip)).intValue()*100;
+	                    percTipText.setText(String.format("%.2f", tiptotal/(double)subtotal*100.0)+"%");
+	                    totalTipText.setText("$"+ttip);
+		        	}
+		        	else {
+		        		tiptotal = 0;
+		        	}
+		        	refreshTotal();
             		inputManager.toggleSoftInput(0, 0);
                     return true;
+		        	
                 }
                 return false;
             }
         });
 		percTipText.addTextChangedListener(new TextWatcher(){
 	        @Override
-			public void afterTextChanged(Editable s) {
-	        	
-	        }
+			public void afterTextChanged(Editable s) {}
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				
-			}
+					int after) {}
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
 				String ptip = percTipText.getText().toString().replace("%","");
-	        	
-                tiptotal = ((Double)(subtotal * 
-                		Double.parseDouble(ptip) / 100.0))
-                		.intValue()+1;
-                totalTipText.setText(String.format("$%.2f", tiptotal/100.0));
-        		inputManager.toggleSoftInput(0, 0);
-                refreshTotal();
+				if(percTipText.isFocused()){
+		        	if(isNumber(ptip)) {
+		                tiptotal = ((Double)(subtotal * 
+		                		Double.parseDouble(ptip) / 100.0))
+		                		.intValue();
+		        	}
+		        	else {
+		        		tiptotal = 0;
+		        	}
+
+	                totalTipText.setText(String.format("$%.2f", tiptotal/100.0));
+	                refreshTotal();
+				}
+
 			}
 		});
 		totalTipText.addTextChangedListener(new TextWatcher(){
 	        @Override
-			public void afterTextChanged(Editable s) {
-	        	
-	        }
+			public void afterTextChanged(Editable s) {}
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				
-			}
+					int after) {}
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
 				String ttip = totalTipText.getText().toString().replace("$","");
-	        	
-                tiptotal = ((Double)Double.parseDouble(ttip)).intValue()*100;
-                percTipText.setText(String.format("%.2f", tiptotal/(double)subtotal*100.0)+"%");
-                refreshTotal();
+				if(totalTipText.isFocused()){
+		        	if(isNumber(ttip)) {
+		                tiptotal = ((Double)Double.parseDouble(ttip)).intValue()*100;
+		        	}
+		        	else {
+		        		tiptotal = 0;
+		        	}
+
+	                percTipText.setText(String.format("%.2f", tiptotal/(double)subtotal*100.0)+"%");
+	                refreshTotal();
+				}
 			}
 		});
 	}
@@ -180,6 +196,16 @@ public class CheckOutActivity extends Activity {
 		
 		TextView totalView = (TextView)findViewById(R.id.totalText);
 	    totalView.setText("Total: $"+String.format("%.2f", total/100.0));
+	}
+	
+	private boolean isNumber(String number) {
+		try {
+			Double.parseDouble(number);
+		}
+		catch (NumberFormatException nfe) {
+			return false;
+		}
+		return true;
 	}
 
 }
