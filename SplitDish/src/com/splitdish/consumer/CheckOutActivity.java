@@ -196,5 +196,15 @@ public class CheckOutActivity extends Activity {
 		TextView totalView = (TextView)findViewById(R.id.totalText);
 	    totalView.setText("Total: $"+String.format("%.2f", total/100.0));
 	}
+	
+	private boolean isNumber(String number) {
+		try {
+			Double.parseDouble(number);
+		}
+		catch (NumberFormatException nfe) {
+			return false;
+		}
+		return true;
+	}
 
 }
