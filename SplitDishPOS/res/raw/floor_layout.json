@@ -21,8 +21,28 @@
          "size":"4",
          "coordinates":
          {
-            "x-co":"1",
-            "y-co":"7"
+            "x-co":"2",
+            "y-co":"5"
+         }
+      },
+      {
+         "name":"3",
+         "shape":"square",
+         "size":"4",
+         "coordinates":
+         {
+            "x-co":"2",
+            "y-co":"2"
+         }
+      },
+      {
+         "name":"4",
+         "shape":"square",
+         "size":"4",
+         "coordinates":
+         {
+            "x-co":"3",
+            "y-co":"1"
          }
       }]
    }]

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -29,6 +30,7 @@ public class CheckOutActivity extends Activity {
 	private int taxtotal = 0;
 	private int tiptotal = 0;
 	private int total = 0;
+	private Context activity;
 	
 	
 	@Override
@@ -39,6 +41,7 @@ public class CheckOutActivity extends Activity {
 		initializeTips();
 		
 		Intent intent = getIntent();
+		activity = this;
 		
 		selectedItems = intent.getParcelableExtra(SELECTED_ITEMS);
 		for(int i=0;i<selectedItems.size();i++) {
@@ -161,7 +164,6 @@ public class CheckOutActivity extends Activity {
 	                totalTipText.setText(String.format("$%.2f", tiptotal/100.0));
 	                refreshTotal();
 				}
-
 			}
 		});
 		totalTipText.addTextChangedListener(new TextWatcher(){
@@ -178,12 +180,11 @@ public class CheckOutActivity extends Activity {
 				String ttip = totalTipText.getText().toString().replace("$","");
 				if(totalTipText.isFocused()){
 		        	if(isNumber(ttip)) {
-		                tiptotal = ((Double)Double.parseDouble(ttip)).intValue()*100;
+		        		tiptotal = (int)(Double.parseDouble(ttip)*100.0);
 		        	}
 		        	else {
 		        		tiptotal = 0;
 		        	}
-
 	                percTipText.setText(String.format("%.2f", tiptotal/(double)subtotal*100.0)+"%");
 	                refreshTotal();
 				}

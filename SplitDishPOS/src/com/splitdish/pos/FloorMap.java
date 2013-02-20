@@ -8,9 +8,10 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.view.Gravity;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.GridLayout;
-import android.widget.GridLayout.LayoutParams;
 import android.widget.ImageView;
+import android.widget.Space;
 import android.widget.TextView;
 
 
@@ -130,6 +131,11 @@ public class FloorMap {
 	// Creates a GridLayout based on the given FloorArea name
 	public GridLayout getAreaLayout(Context context, String areaTitle) {
 		GridLayout areaGrid = new GridLayout(context);
+		GridLayout.LayoutParams gridParams = new GridLayout.LayoutParams();
+		gridParams.height = LayoutParams.MATCH_PARENT;
+		gridParams.width = LayoutParams.MATCH_PARENT;
+		
+		areaGrid.setLayoutParams(gridParams);
 		
 		FloorArea area = getArea(areaTitle);
 		
