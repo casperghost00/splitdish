@@ -11,12 +11,14 @@ import android.view.Gravity;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.Space;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
+
 
 
 public class FloorMap {
 
+	private static final int X_COORD = 0;
+	private static final int Y_COORD = 1;
 	private enum ZoomLevel {close, standard, far}; 
 
 	ArrayList<FloorArea> areas;
@@ -57,6 +59,11 @@ public class FloorMap {
 			}
 		}		
 		
+		//Returns number of tables in the area
+		public int size() {
+			return tables.size();
+		}
+		
 		public Table getTable(String tableName) {
 			Table table = null;
 			for(int i=0;i<tables.size();i++) {
@@ -65,6 +72,10 @@ public class FloorMap {
 				}
 			}
 			return table;
+		}
+		
+		public Table getTable(int position) {
+			return tables.get(position);
 		}
 
 		public ArrayList<ImageView> getTableViews(Context context) {
@@ -79,13 +90,7 @@ public class FloorMap {
 				tableView = new ImageView(context);
 				param = new GridLayout.LayoutParams();
 				
-		        param.rightMargin = 5;
-		        param.topMargin = 5;
 		        param.setGravity(Gravity.CENTER);
-		        param.columnSpec = GridLayout.spec(tables.get(i).coords[0]);
-		        param.rowSpec = GridLayout.spec(tables.get(i).coords[1]);
-		        param.height = 100;
-		        param.width = 100;
 		        tableView.setLayoutParams(param);
 		        
 		        //TODO Check what shape the table is to determine resource
@@ -113,8 +118,8 @@ public class FloorMap {
 			
 			JSONObject jCoords = jsonTable.getJSONObject("coordinates");
 			
-			coords[0] = jCoords.getInt("x-co");
-			coords[1] = jCoords.getInt("y-co");
+			coords[X_COORD] = jCoords.getInt("x-co");
+			coords[Y_COORD] = jCoords.getInt("y-co");
 		}
 	}
 	
@@ -128,14 +133,13 @@ public class FloorMap {
 		return areaTitles;
 	}
 	
-	// Creates a GridLayout based on the given FloorArea name
-	public GridLayout getAreaLayout(Context context, String areaTitle) {
-		GridLayout areaGrid = new GridLayout(context);
-		GridLayout.LayoutParams gridParams = new GridLayout.LayoutParams();
-		gridParams.height = LayoutParams.MATCH_PARENT;
-		gridParams.width = LayoutParams.MATCH_PARENT;
+	// Creates a RelativeLayout based on the given FloorArea name and source file
+	public RelativeLayout getAreaLayout(Context context, String areaTitle) {
+		RelativeLayout areaGrid = new RelativeLayout(context);
+		RelativeLayout.LayoutParams params = new RelativeLayout.
+				LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
 		
-		areaGrid.setLayoutParams(gridParams);
+		areaGrid.setLayoutParams(params);
 		
 		FloorArea area = getArea(areaTitle);
 		
@@ -143,42 +147,36 @@ public class FloorMap {
 			return null;
 		}
 		
+		int[][] coords = new int[area.size()][2];
+		Table table = null;
+		//TODO Implement Zoom Levels
 		if(area.zoom.compareTo(ZoomLevel.close.toString()) == 0) {
-			areaGrid.setRowCount(10);
-			areaGrid.setColumnCount(10);
+			for(int i=0;i<area.size();i++) {
+				table = area.getTable(i);
+				coords[i][0]=table.coords[X_COORD]*120 + 40;
+				coords[i][1]=table.coords[Y_COORD]*120 + 40;
+			}
 		}
 		
 		ArrayList<ImageView> tables = area.getTableViews(context);
 		
+		ImageView tableView = null;
+		
 		for(int i=0;i<tables.size();i++) {
-			areaGrid.addView(tables.get(i));
-			TextView text = new TextView(context);
-			text.setText(Integer.toString(i));
-			text.setTextColor(context.getResources().getColor(R.color.Red));
-			areaGrid.addView(text);
-		}
-	
-		TextView testText;
-		
-		for(int i=0;i<area.tables.size();i++) {
-			testText = new TextView(context);
-
-			testText.setText("Name: "+area.tables.get(i).name+
-					"\nCoordinates: "+area.tables.get(i).coords[0]+","+
-					area.tables.get(i).coords[1]);
-			testText.setTextColor(context.getResources().getColor(R.color.White));
-
-			areaGrid.addView(testText);
+			tableView = tables.get(i);
+			params = new RelativeLayout.LayoutParams(100, 100);
+			params.leftMargin = coords[i][X_COORD];
+			params.topMargin = coords[i][Y_COORD];
 			
-		}
-		
+			areaGrid.addView(tableView, params);
+		}		
 		
 		return areaGrid;
 	}
 	
 	public FloorArea getArea(String areaTitle) {
 		FloorArea area = null;
-		
+
 		for(int i=0;i<areas.size();i++) {
 			if(areas.get(i).title.compareTo(areaTitle)==0) {
 				area = areas.get(i);
