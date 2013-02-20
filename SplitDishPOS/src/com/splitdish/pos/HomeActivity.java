@@ -19,14 +19,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 public class HomeActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -36,7 +35,7 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
      * keep every loaded fragment in memory. If this becomes too memory intensive, it may be best
      * to switch to a {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    SectionsPagerAdapter mSectionsPagerAdapter;
+    FloorSectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -50,7 +49,15 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
         setContentView(R.layout.activity_home);
         // Create the adapter that will return a fragment for each of the three primary sections
         // of the app.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+        try {
+        	jsonFloorLayout = getJSONFromRawResource();
+        }
+        catch(IOException e) {
+        	e.getStackTrace();
+        }
+        
+        mSectionsPagerAdapter = new FloorSectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
@@ -80,12 +87,6 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
-        try {
-        	jsonFloorLayout = getJSONFromRawResource();
-        }
-        catch(IOException e) {
-        	e.getStackTrace();
-        }
     }
 
     @Override
@@ -114,57 +115,12 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
      * sections of the app.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class FloorSectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        String[] areaTitles;
+        
+        public FloorSectionsPagerAdapter(FragmentManager fm) {
             super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int i) {
-            Fragment fragment = new DummySectionFragment();
-            Bundle args = new Bundle();
-            args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, i + 1);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0: return getString(R.string.title_section1).toUpperCase();
-                case 1: return getString(R.string.title_section2).toUpperCase();
-                case 2: return getString(R.string.title_section3).toUpperCase();
-            }
-            return null;
-        }
-    }
-
-    /**
-     * A dummy fragment representing a section of the app, but that simply displays dummy text.
-     */
-    public static class DummySectionFragment extends Fragment {
-        public DummySectionFragment() {
-        }
-
-        public static final String ARG_SECTION_NUMBER = "section_number";
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-        	
-        	RelativeLayout relLayout = new RelativeLayout(getActivity());
-        	
-        	relLayout.setBackgroundColor(getResources().getColor(R.color.Black));
-        	
-            //TextView textView = new TextView(getActivity());
-            //textView.setGravity(Gravity.CENTER);
-            
             
             JSONObject jFloorLayout;
             FloorMap fMap = null;
@@ -178,23 +134,63 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
             	e.printStackTrace();
             }
             
-            String[] areaTitles = fMap.getAreaTitles();
-            GridLayout floorGrid = fMap.getAreaLayout(getActivity(), areaTitles[0]);
+            areaTitles = fMap.getAreaTitles();
+        }
 
-            //Bundle args = getArguments();
-            //textView.setText(Integer.toString(args.getInt(ARG_SECTION_NUMBER)));
-            //textView.setTextColor(getResources().getColor(R.color.White));
+        @Override
+        public Fragment getItem(int i) {
+            Fragment fragment = new FloorSectionFragment();
+            Bundle args = new Bundle();
+            args.putString(FloorSectionFragment.ARG_AREA_TITLE, areaTitles[i]);
+            fragment.setArguments(args);
+            return fragment;
+        }
 
-            //ImageView iView = new ImageView(getActivity());
-            //iView.setImageResource(R.drawable.square_table);            
+        @Override
+        public int getCount() {
+            return areaTitles.length;
+        }
 
-        	//relLayout.addView(textView);
-        	//relLayout.addView(iView);
-        	relLayout.addView(floorGrid);
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return areaTitles[position];
+        }
+    }
+
+    public static class FloorSectionFragment extends Fragment {
+    	public FloorSectionFragment() {
+        }
+
+        public static final String ARG_SECTION_NUMBER = "section_number";
+        public static final String ARG_AREA_TITLE = "com.splitdish.consumer.area_title";
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
         	
+        	RelativeLayout relLayout = new RelativeLayout(getActivity());
+        	
+        	relLayout.setBackgroundColor(getResources().getColor(R.color.Black));
+            
+        	Bundle args = getArguments();
+        	String areaTitle = args.getString(FloorSectionFragment.ARG_AREA_TITLE);
+        	
+        	JSONObject jFloorLayout;
+            FloorMap fMap = null;
+            
+            try {
+            	jFloorLayout = new JSONObject(jsonFloorLayout);
+                fMap = new FloorMap(jFloorLayout);
+            }
+            catch(JSONException e)
+            {
+            	e.printStackTrace();
+            }
+        	
+            RelativeLayout floorGrid = fMap.getAreaLayout(getActivity(), areaTitle);
 
-            //iView.getLayoutParams().height = 100;
-            //iView.getLayoutParams().width = 100;
+           
+        	relLayout.addView(floorGrid);
         	
             return relLayout;
         }
