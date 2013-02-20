@@ -27,7 +27,7 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.RelativeLayout;
 
-public class HomeActivity extends FragmentActivity implements ActionBar.TabListener {
+public class FloorActivity extends FragmentActivity implements ActionBar.TabListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the
@@ -46,7 +46,7 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_floor);
         // Create the adapter that will return a fragment for each of the three primary sections
         // of the app.
 
@@ -142,6 +142,7 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
             Fragment fragment = new FloorSectionFragment();
             Bundle args = new Bundle();
             args.putString(FloorSectionFragment.ARG_AREA_TITLE, areaTitles[i]);
+            args.putString(FloorSectionFragment.ARG_JSON_FLOOR_LAYOUT, jsonFloorLayout);
             fragment.setArguments(args);
             return fragment;
         }
@@ -154,45 +155,6 @@ public class HomeActivity extends FragmentActivity implements ActionBar.TabListe
         @Override
         public CharSequence getPageTitle(int position) {
             return areaTitles[position];
-        }
-    }
-
-    public static class FloorSectionFragment extends Fragment {
-    	public FloorSectionFragment() {
-        }
-
-        public static final String ARG_SECTION_NUMBER = "section_number";
-        public static final String ARG_AREA_TITLE = "com.splitdish.consumer.area_title";
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-        	
-        	RelativeLayout relLayout = new RelativeLayout(getActivity());
-        	
-        	relLayout.setBackgroundColor(getResources().getColor(R.color.Black));
-            
-        	Bundle args = getArguments();
-        	String areaTitle = args.getString(FloorSectionFragment.ARG_AREA_TITLE);
-        	
-        	JSONObject jFloorLayout;
-            FloorMap fMap = null;
-            
-            try {
-            	jFloorLayout = new JSONObject(jsonFloorLayout);
-                fMap = new FloorMap(jFloorLayout);
-            }
-            catch(JSONException e)
-            {
-            	e.printStackTrace();
-            }
-        	
-            RelativeLayout floorGrid = fMap.getAreaLayout(getActivity(), areaTitle);
-
-           
-        	relLayout.addView(floorGrid);
-        	
-            return relLayout;
         }
     }
     

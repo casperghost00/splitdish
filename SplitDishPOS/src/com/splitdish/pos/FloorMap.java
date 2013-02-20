@@ -39,7 +39,7 @@ public class FloorMap {
 		}
 	}
 	
-	private class FloorArea {
+	public class FloorArea {
 		String title;
 		String zoom;
 		ArrayList<Table> tables;
@@ -102,7 +102,7 @@ public class FloorMap {
 		}
 	}
 	
-	private class Table {
+	public class Table {
 
 		String name = "";
 		String shape = "";
@@ -131,47 +131,6 @@ public class FloorMap {
 		}
 		
 		return areaTitles;
-	}
-	
-	// Creates a RelativeLayout based on the given FloorArea name and source file
-	public RelativeLayout getAreaLayout(Context context, String areaTitle) {
-		RelativeLayout areaGrid = new RelativeLayout(context);
-		RelativeLayout.LayoutParams params = new RelativeLayout.
-				LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
-		
-		areaGrid.setLayoutParams(params);
-		
-		FloorArea area = getArea(areaTitle);
-		
-		if(area == null) {
-			return null;
-		}
-		
-		int[][] coords = new int[area.size()][2];
-		Table table = null;
-		//TODO Implement Zoom Levels
-		if(area.zoom.compareTo(ZoomLevel.close.toString()) == 0) {
-			for(int i=0;i<area.size();i++) {
-				table = area.getTable(i);
-				coords[i][0]=table.coords[X_COORD]*120 + 40;
-				coords[i][1]=table.coords[Y_COORD]*120 + 40;
-			}
-		}
-		
-		ArrayList<ImageView> tables = area.getTableViews(context);
-		
-		ImageView tableView = null;
-		
-		for(int i=0;i<tables.size();i++) {
-			tableView = tables.get(i);
-			params = new RelativeLayout.LayoutParams(100, 100);
-			params.leftMargin = coords[i][X_COORD];
-			params.topMargin = coords[i][Y_COORD];
-			
-			areaGrid.addView(tableView, params);
-		}		
-		
-		return areaGrid;
 	}
 	
 	public FloorArea getArea(String areaTitle) {
