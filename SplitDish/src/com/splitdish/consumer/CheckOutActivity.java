@@ -176,7 +176,7 @@ public class CheckOutActivity extends Activity {
 				if(((Activity)activity).getCurrentFocus() == totalTipText) {
 					String ttip = totalTipText.getText().toString().replace("$","");
 		        	try {
-		        		tiptotal = ((Double)Double.parseDouble(ttip)).intValue()*100;
+		        		tiptotal = ((Double)(Double.parseDouble(ttip)*100.0)).intValue();
 		        	} catch(NumberFormatException e) {
 		        		tiptotal = 0;
 		        	}
