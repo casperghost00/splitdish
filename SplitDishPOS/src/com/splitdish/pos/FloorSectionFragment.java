@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.splitdish.pos.FloorMap.FloorArea;
 import com.splitdish.pos.FloorMap.Table;
@@ -78,28 +80,54 @@ public class FloorSectionFragment extends Fragment {
  			return null;
  		}
  		
- 		int[][] coords = new int[area.size()][2];
+ 		int[][] tableCoords = new int[area.size()][2];
+ 		String[] tableNames = new String[area.size()];
  		Table table = null;
  		//TODO Implement Zoom Levels
  		if(area.zoom.compareTo(ZoomLevel.close.toString()) == 0) {
  			for(int i=0;i<area.size();i++) {
  				table = area.getTable(i);
- 				coords[i][0]=table.coords[X_COORD]*120 + 40;
- 				coords[i][1]=table.coords[Y_COORD]*120 + 40;
+ 				tableCoords[i][0]=table.coords[X_COORD]*120 + 40;
+ 				tableCoords[i][1]=table.coords[Y_COORD]*120 + 40;
+ 				tableNames[i] = table.name;
  			}
  		}
  		
  		ArrayList<ImageView> tables = area.getTableViews(context);
  		
- 		ImageView tableView = null;
+ 		RelativeLayout tableContainer = null; //Container for table name on top of image
+ 		ImageView tableView = null; //Image of the table
+ 		TextView tableNameView = null; //Text representing table name
  		
  		for(int i=0;i<tables.size();i++) {
- 			tableView = tables.get(i);
- 			params = new RelativeLayout.LayoutParams(100, 100);
- 			params.leftMargin = coords[i][X_COORD];
- 			params.topMargin = coords[i][Y_COORD];
+ 			tableContainer = new RelativeLayout(context);
  			
- 			areaGrid.addView(tableView, params);
+ 			//Get the table ImageView from the ArrayList
+ 			tableView = tables.get(i);
+ 			
+ 			//Set the size of the table ImageView
+ 			params = new RelativeLayout.LayoutParams(100, 100);
+ 			
+ 			tableContainer.addView(tableView, params);
+ 			
+ 			//Set the proper table name
+ 			tableNameView = new TextView(context);
+ 			tableNameView.setText(tableNames[i]);
+ 			tableNameView.setTypeface(null, Typeface.BOLD);
+ 			tableNameView.setTextSize(18);
+ 			
+ 			params = new RelativeLayout.LayoutParams(
+ 					LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+ 			params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+ 			 			
+ 			tableContainer.addView(tableNameView, params);
+ 			
+ 			params = new RelativeLayout.LayoutParams(
+ 					LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);; 			
+ 			params.leftMargin = tableCoords[i][X_COORD];
+ 			params.topMargin = tableCoords[i][Y_COORD];
+ 			
+ 			areaGrid.addView(tableContainer, params);
  		}		
  		
  		return areaGrid;
