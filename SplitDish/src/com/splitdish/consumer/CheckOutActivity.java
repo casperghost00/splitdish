@@ -18,6 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.splitdish.lib.TicketAdapter;
+import com.splitdish.lib.TicketItemList;
+
 public class CheckOutActivity extends Activity {
 
 	private static final String SELECTED_ITEMS = "com.splitdish.consumer.SELECTED_ITEMS";
@@ -44,8 +47,8 @@ public class CheckOutActivity extends Activity {
 		
 		selectedItems = intent.getParcelableExtra(SELECTED_ITEMS);
 		for(int i=0;i<selectedItems.size();i++) {
-			selectedItems.get(i).selected=false;
-			subtotal += selectedItems.get(i).price;
+			selectedItems.get(i).setSelected(false);
+			subtotal += selectedItems.get(i).getPrice();
 		}
 		taxtotal = ((Double)(subtotal * taxRate)).intValue(); 
 		total = subtotal + taxtotal + tiptotal;

@@ -1,7 +1,6 @@
 package com.splitdish.consumer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
@@ -14,6 +13,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.splitdish.lib.TicketAdapter;
+import com.splitdish.lib.TicketItem;
+import com.splitdish.lib.TicketItemList;
 
 public class ItemSelectionActivity extends Activity {
 
@@ -90,15 +93,15 @@ public class ItemSelectionActivity extends Activity {
 	
 	private void itemPressed(AdapterView<?> parent, View view, int position, long id) {
 		TicketItem item = adapter.getItem(position);
-		if(item.selected == false) {
+		if(item.isSelected() == false) {
 	    	view.setBackgroundResource(R.drawable.border_highlight);
-	    	subtotal+=item.price;
-	    	item.selected = true;
+	    	subtotal+=item.getPrice();
+	    	item.setSelected(true);
 	    }
 	    else {
 	    	view.setBackgroundResource(R.color.transparent);
-	    	subtotal-=item.price;
-	    	item.selected = false;
+	    	subtotal-=item.getPrice();
+	    	item.setSelected(false);
 
 	    }
 	}
@@ -106,7 +109,7 @@ public class ItemSelectionActivity extends Activity {
 	public void checkOut(View v) {
 		
 		for(int i=0; i<items.size(); i++) {
-			if(items.get(i).selected) {
+			if(items.get(i).isSelected()) {
 				selectedItems.add(items.get(i));
 			}
 		}
@@ -121,16 +124,16 @@ public class ItemSelectionActivity extends Activity {
 		for(int i=0; i<items.size(); i++) {
 			TicketItem item = items.get(i);
 			if(allSelected) {
-				if(item.selected == false)
-					subtotal+=item.price;
-				item.selected = true;
+				if(item.isSelected() == false)
+					subtotal+=item.getPrice();
+				item.setSelected(true);
 				
 			}
 			else {
-				if(item.selected) {
-					subtotal-=item.price;
+				if(item.isSelected()) {
+					subtotal-=item.getPrice();
 				}
-				item.selected = false;
+				item.setSelected(false);
 				
 			}
 		}
