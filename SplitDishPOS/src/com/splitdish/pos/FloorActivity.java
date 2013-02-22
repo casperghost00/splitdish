@@ -1,12 +1,6 @@
 package com.splitdish.pos;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.io.Writer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,13 +13,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.GridLayout;
-import android.widget.RelativeLayout;
+
+import com.splitdish.lib.Utilities;
 
 public class FloorActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -51,7 +41,7 @@ public class FloorActivity extends FragmentActivity implements ActionBar.TabList
         // of the app.
 
         try {
-        	jsonFloorLayout = getJSONFromRawResource();
+        	jsonFloorLayout = Utilities.getJSONFromRawResource(this, R.raw.floor_layout);
         }
         catch(IOException e) {
         	e.getStackTrace();
@@ -126,8 +116,7 @@ public class FloorActivity extends FragmentActivity implements ActionBar.TabList
             FloorMap fMap = null;
             
             try {
-            	jFloorLayout = new JSONObject(jsonFloorLayout);
-                fMap = new FloorMap(jFloorLayout);
+                fMap = new FloorMap(jsonFloorLayout);
             }
             catch(JSONException e)
             {
@@ -156,22 +145,5 @@ public class FloorActivity extends FragmentActivity implements ActionBar.TabList
         public CharSequence getPageTitle(int position) {
             return areaTitles[position];
         }
-    }
-    
-    public String getJSONFromRawResource() throws IOException{
-	    InputStream is = getResources().openRawResource(R.raw.floor_layout);
-	    Writer writer = new StringWriter();
-	    char[] buffer = new char[2048];
-	    try {
-	        Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-	        int n;
-	        while ((n = reader.read(buffer)) != -1) {
-	            writer.write(buffer, 0, n);
-	        }
-	    } finally {
-	        is.close();
-	    }
-	
-	    return writer.toString();
     }
 }

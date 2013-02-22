@@ -50,8 +50,7 @@ public class FloorSectionFragment extends Fragment {
         FloorMap fMap = null;
         
         try {
-        	jFloorLayout = new JSONObject(jsonFloorLayout);
-            fMap = new FloorMap(jFloorLayout);
+            fMap = new FloorMap(jsonFloorLayout);
         }
         catch(JSONException e)
         {

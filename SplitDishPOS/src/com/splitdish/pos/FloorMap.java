@@ -8,10 +8,8 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.view.Gravity;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 
 
@@ -24,8 +22,11 @@ public class FloorMap {
 	ArrayList<FloorArea> areas;
 	String timestamp;
 	
-	public FloorMap(JSONObject jsonFloorLayout) throws JSONException {
+	public FloorMap(String jFloorLayout) throws JSONException {
 		areas = new ArrayList<FloorArea>();
+		
+
+    	JSONObject jsonFloorLayout = new JSONObject(jFloorLayout);
 		
 		timestamp = jsonFloorLayout.getString("timestamp");
 		
