@@ -1,5 +1,8 @@
 package com.splitdish.lib;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,14 +12,21 @@ public class TicketItem implements Parcelable{
 	String description;
 	String notes;
 	int price; //price in cents
-	Boolean selected;
+	Boolean selected = false;
+	int course = 0; //what course number does the item belong to
+	
+	public TicketItem(JSONObject jsonItem) throws JSONException {
+		title = jsonItem.getString("title");
+		description = jsonItem.getString("description");
+		notes = jsonItem.getString("notes");
+		price = jsonItem.getInt("price");		
+	}
 	
 	public TicketItem(String title, String desc, String notes, int price) {
 		this.title = title;
 		this.description = desc;
 		this.notes = notes;
 		this.price = price;
-		selected = false;
 	}
 	
 	public TicketItem (Parcel in) {
@@ -74,6 +84,14 @@ public class TicketItem implements Parcelable{
 	}
 	public void setSelected(Boolean isSelected) {
 		selected = isSelected;
+	}
+	
+	public int getCourse() {
+		return course;
+	}
+	
+	public void setCourse(int courseNum) {
+		course = courseNum;
 	}
 	
 }

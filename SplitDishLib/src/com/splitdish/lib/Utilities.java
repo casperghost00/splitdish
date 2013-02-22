@@ -12,7 +12,7 @@ import android.content.Context;
 
 public class Utilities {
 
-    public static String getJSONFromRawResource(Context context, int rawResource) throws IOException{
+    public static String getTextFromRawResource(Context context, int rawResource) throws IOException{
 	    InputStream is = context.getResources().openRawResource(rawResource);
 	    Writer writer = new StringWriter();
 	    char[] buffer = new char[2048];

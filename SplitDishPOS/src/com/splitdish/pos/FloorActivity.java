@@ -41,7 +41,7 @@ public class FloorActivity extends FragmentActivity implements ActionBar.TabList
         // of the app.
 
         try {
-        	jsonFloorLayout = Utilities.getJSONFromRawResource(this, R.raw.floor_layout);
+        	jsonFloorLayout = Utilities.getTextFromRawResource(this, R.raw.floor_layout);
         }
         catch(IOException e) {
         	e.getStackTrace();
@@ -116,7 +116,8 @@ public class FloorActivity extends FragmentActivity implements ActionBar.TabList
             FloorMap fMap = null;
             
             try {
-                fMap = new FloorMap(jsonFloorLayout);
+            	jFloorLayout = new JSONObject(jsonFloorLayout);
+                fMap = new FloorMap(jFloorLayout);
             }
             catch(JSONException e)
             {

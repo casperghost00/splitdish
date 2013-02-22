@@ -22,11 +22,8 @@ public class FloorMap {
 	ArrayList<FloorArea> areas;
 	String timestamp;
 	
-	public FloorMap(String jFloorLayout) throws JSONException {
+	public FloorMap(JSONObject jsonFloorLayout) throws JSONException {
 		areas = new ArrayList<FloorArea>();
-		
-
-    	JSONObject jsonFloorLayout = new JSONObject(jFloorLayout);
 		
 		timestamp = jsonFloorLayout.getString("timestamp");
 		

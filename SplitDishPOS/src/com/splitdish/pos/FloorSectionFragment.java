@@ -22,17 +22,15 @@ import com.splitdish.pos.FloorMap.Table;
 
 public class FloorSectionFragment extends Fragment {
 	
+	public static final String ARG_SECTION_NUMBER = "section_number";
+    public static final String ARG_AREA_TITLE = "com.splitdish.pos.area_title";
+    public static final String ARG_JSON_FLOOR_LAYOUT = "com.splitdish.pos.json_floor_layout";
+    
 	private static final int X_COORD = 0;
 	private static final int Y_COORD = 1;
 	private enum ZoomLevel {close, standard, far}; 
-
 	
-	public FloorSectionFragment() {
-    }
-
-    public static final String ARG_SECTION_NUMBER = "section_number";
-    public static final String ARG_AREA_TITLE = "com.splitdish.pos.area_title";
-    public static final String ARG_JSON_FLOOR_LAYOUT = "com.splitdish.pos.json_floor_layout";
+	public FloorSectionFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +48,8 @@ public class FloorSectionFragment extends Fragment {
         FloorMap fMap = null;
         
         try {
-            fMap = new FloorMap(jsonFloorLayout);
+        	jFloorLayout = new JSONObject(jsonFloorLayout);
+            fMap = new FloorMap(jFloorLayout);
         }
         catch(JSONException e)
         {

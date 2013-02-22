@@ -1,8 +1,5 @@
 package com.splitdish.consumer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +19,7 @@ public class ItemSelectionActivity extends Activity {
 
 	
 	private static final String SELECTED_ITEMS = "com.splitdish.consumer.SELECTED_ITEMS";
-	private List<TicketItem> items;
+	private TicketItemList items;
 	private TicketItemList selectedItems;
 	private TicketAdapter adapter;
 	private ListView listView1;
@@ -34,7 +31,7 @@ public class ItemSelectionActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_item_selection);
 		
-		items = new ArrayList<TicketItem>();
+		items = new TicketItemList();
 		selectedItems = new TicketItemList();
 		
 		items.add(new TicketItem("Chicken Parmesan", "","Hold the Chicken",1499));

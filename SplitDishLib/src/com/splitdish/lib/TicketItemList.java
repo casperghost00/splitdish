@@ -2,17 +2,43 @@ package com.splitdish.lib;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class TicketItemList extends ArrayList<TicketItem> implements Parcelable {
 	
+	int numCourses = 0;
+	TicketItemList[] courseList;
+	
 	public TicketItemList() {
 		super();
 	}
 	
-	public TicketItemList(String jsonTicketItems) {
+	public TicketItemList(JSONObject jsonTicketItems) throws JSONException {
+		super();
 		
+		JSONArray jTicketItems = new JSONArray();
+		JSONArray jCourses = new JSONArray();
+		
+		jCourses = jsonTicketItems.getJSONArray("courses");
+
+		JSONObject jItem = null;
+		TicketItem item = null;
+		numCourses = jCourses.length();
+		for(int i=0;i<numCourses;i++) {
+			jTicketItems = jCourses.getJSONObject(i).getJSONArray("items");
+
+			for(int j=0;j<jTicketItems.length();j++) {
+				jItem = jTicketItems.getJSONObject(j);
+				item = new TicketItem(jItem);
+				item.setCourse(i);
+				add(item);
+			}
+		}
 	}
 	
 	public TicketItemList(Parcel in) {
@@ -20,6 +46,19 @@ public class TicketItemList extends ArrayList<TicketItem> implements Parcelable 
 		for(int i=0;i<size;i++) {
 			this.add(new TicketItem(in));
 		}
+	}
+	
+	public TicketItemList getCourseList(int courseNum) {
+		TicketItemList courseList = new TicketItemList();
+		
+		TicketItem item = null;
+		for(int i=0;i<size();i++) {
+			item = get(i);
+			if(item.getCourse()==courseNum) {
+				courseList.add(item);
+			}
+		}
+		return courseList;
 	}
 
 	@Override
