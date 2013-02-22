@@ -11,6 +11,10 @@ public class TicketItemList extends ArrayList<TicketItem> implements Parcelable 
 		super();
 	}
 	
+	public TicketItemList(String jsonTicketItems) {
+		
+	}
+	
 	public TicketItemList(Parcel in) {
 		int size = in.readInt();
 		for(int i=0;i<size;i++) {
