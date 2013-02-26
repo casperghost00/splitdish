@@ -9,11 +9,13 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,27 +27,25 @@ public class FloorSectionFragment extends Fragment {
 	public static final String ARG_SECTION_NUMBER = "section_number";
     public static final String ARG_AREA_TITLE = "com.splitdish.pos.area_title";
     public static final String ARG_JSON_FLOOR_LAYOUT = "com.splitdish.pos.json_floor_layout";
+    public static final String ARG_TABLE_NAME = "com.splitdish.pos.table_name";
     
 	private static final int X_COORD = 0;
 	private static final int Y_COORD = 1;
 	private enum ZoomLevel {close, standard, far}; 
 	
+	private PopupWindow popUp;
+	private FloorMap fMap = null;
+	
 	public FloorSectionFragment() {}
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-    	
-    	RelativeLayout relLayout = new RelativeLayout(getActivity());
-    	
-    	relLayout.setBackgroundColor(getResources().getColor(R.color.Black));
-        
-    	Bundle args = getArguments();
-    	String areaTitle = args.getString(FloorSectionFragment.ARG_AREA_TITLE);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		Bundle args = getArguments();
     	String jsonFloorLayout = args.getString(FloorSectionFragment.ARG_JSON_FLOOR_LAYOUT);
     	
     	JSONObject jFloorLayout;
-        FloorMap fMap = null;
         
         try {
         	jFloorLayout = new JSONObject(jsonFloorLayout);
@@ -55,6 +55,20 @@ public class FloorSectionFragment extends Fragment {
         {
         	e.printStackTrace();
         }
+        
+        
+	}
+	
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+    	
+    	RelativeLayout relLayout = new RelativeLayout(getActivity());
+    	
+    	relLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
+        
+    	Bundle args = getArguments();
+    	String areaTitle = args.getString(FloorSectionFragment.ARG_AREA_TITLE);
     	
         RelativeLayout floorGrid = getAreaLayout(getActivity(), areaTitle, fMap);
 
@@ -62,6 +76,12 @@ public class FloorSectionFragment extends Fragment {
     	relLayout.addView(floorGrid);
     	
         return relLayout;
+    }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	
     }
     
     // Creates a RelativeLayout based on the given FloorArea name and source file
@@ -99,7 +119,7 @@ public class FloorSectionFragment extends Fragment {
  		
  		for(int i=0;i<tables.size();i++) {
  			tableContainer = new RelativeLayout(context);
- 			
+ 			final String tableName = tableNames[i];
  			//Get the table ImageView from the ArrayList
  			tableView = tables.get(i);
  			
@@ -113,6 +133,7 @@ public class FloorSectionFragment extends Fragment {
  			tableNameView.setText(tableNames[i]);
  			tableNameView.setTypeface(null, Typeface.BOLD);
  			tableNameView.setTextSize(18);
+ 			tableNameView.setTextColor(getResources().getColor(R.color.black));
  			
  			params = new RelativeLayout.LayoutParams(
  					LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
@@ -126,8 +147,28 @@ public class FloorSectionFragment extends Fragment {
  			params.topMargin = tableCoords[i][Y_COORD];
  			
  			areaGrid.addView(tableContainer, params);
+ 			areaGrid.setOnClickListener(new View.OnClickListener() {
+
+				public void onClick(View v) {
+					tableSelected(v,tableName);
+				}
+ 			});
  		}		
  		
  		return areaGrid;
+ 	}
+ 	
+ 	private void tableSelected(View v, String tableName) {
+ 		FragmentManager fm = getChildFragmentManager();
+ 		
+ 		Bundle args = new Bundle();
+ 		
+ 		TableDialogFragment itemFrag = new TableDialogFragment();
+ 		
+ 		//Tell the fragment what table it refers to
+ 		args.putString(FloorSectionFragment.ARG_TABLE_NAME, tableName);
+ 		itemFrag.setArguments(args);
+ 		
+ 		itemFrag.show(fm, "fragment_ticket_list");
  	}
 }

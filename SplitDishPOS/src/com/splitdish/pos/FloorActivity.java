@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -85,6 +86,11 @@ public class FloorActivity extends FragmentActivity implements ActionBar.TabList
         return true;
     }
 
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	
+    }
     
 
     //@Override

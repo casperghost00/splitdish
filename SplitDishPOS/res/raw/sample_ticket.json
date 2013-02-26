@@ -1,9 +1,11 @@
 { 
 	"ticket_id":"1a",
-	"courses": [
+	"courses":
+	[
 	    {
-		 	"course_no":"1"
-			"items": [
+		 	"course_no":"1",
+			"items": 
+			[
 				{
 				    "item_id":"1",
 				    "title":"Macaroni and Cheese",
@@ -39,7 +41,6 @@
 				    "notes":"No Mayo",
 				    "price":"1199"
 			    }
-			    
 			]
 		}
 	]
