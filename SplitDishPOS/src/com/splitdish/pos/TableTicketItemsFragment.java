@@ -54,7 +54,6 @@ public class TableTicketItemsFragment extends Fragment {
 	    // Inflate the layout for this fragment
 	    mFragmentView = inflater.inflate(R.layout.fragment_table_ticket_items, container, false);
 
-		Log.d("Test", "Here");
 	    return mFragmentView;
 	}
 	

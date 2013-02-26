@@ -28,28 +28,20 @@ public class TableDialogFragment extends DialogFragment {
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 			Bundle savedInstanceState) {
-		mFragmentView = inflater.inflate(R.layout.fragment_table_dialog, container, false);
-		
-		Button doNestingButton = (Button) mFragmentView.findViewById(R.id.ticket_items_button);
-		
+		mFragmentView = inflater.inflate(R.layout.fragment_table_dialog, container, false);		
 		
 		Fragment noteFrag = new TableNotesFragment();
-		
-		doNestingButton.setOnClickListener(new View.OnClickListener() {
-            
-            public void onClick(View v) {
-            	Fragment listFrag = new TableTicketItemsFragment();
-        		FragmentTransaction fTrans = getChildFragmentManager().beginTransaction();
-        		fTrans.addToBackStack("list");
-        		fTrans.add(getId(), listFrag, "list");
-        		fTrans.commit();
-            }
-        });
-		/*
+    	Fragment listFrag = new TableTicketItemsFragment();
+    	
+		FragmentTransaction fTrans = getChildFragmentManager().beginTransaction();
+		fTrans.addToBackStack("list");
+		fTrans.add(R.id.root_dialog_layout, listFrag, "list");
+		fTrans.commit();
+
 		fTrans = getChildFragmentManager().beginTransaction();
 		fTrans.addToBackStack("note");
-		fTrans.add(getId(), noteFrag, "note");
-		fTrans.commit();*/
+		fTrans.add(R.id.bottom_dialog_layout, noteFrag, "note");
+		fTrans.commit();
 		
 		return mFragmentView;
 	}

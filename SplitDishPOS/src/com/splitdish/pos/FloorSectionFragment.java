@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -147,7 +148,8 @@ public class FloorSectionFragment extends Fragment {
  			params.topMargin = tableCoords[i][Y_COORD];
  			
  			areaGrid.addView(tableContainer, params);
- 			areaGrid.setOnClickListener(new View.OnClickListener() {
+
+ 			tableView.setOnClickListener(new View.OnClickListener() {
 
 				public void onClick(View v) {
 					tableSelected(v,tableName);
