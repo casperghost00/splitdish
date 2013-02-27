@@ -60,6 +60,11 @@ public class TicketItemList extends ArrayList<TicketItem> implements Parcelable 
 		}
 		return courseList;
 	}
+	
+	// Returns how many unique courses a list possesses
+	public int numCourses() {
+		return numCourses;
+	}
 
 	@Override
 	public int describeContents() {
