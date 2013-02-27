@@ -35,7 +35,7 @@ public class TableDialogFragment extends DialogFragment {
     	
 		FragmentTransaction fTrans = getChildFragmentManager().beginTransaction();
 		fTrans.addToBackStack("list");
-		fTrans.add(R.id.root_dialog_layout, listFrag, "list");
+		fTrans.add(R.id.list_fragment_placeholder, listFrag, "list");
 		fTrans.commit();
 
 		fTrans = getChildFragmentManager().beginTransaction();
