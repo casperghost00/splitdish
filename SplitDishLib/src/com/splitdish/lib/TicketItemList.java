@@ -54,6 +54,13 @@ public class TicketItemList extends ArrayList<TicketItem> implements Parcelable 
 		return courseList;
 	}
 	
+
+	
+	// Returns how many unique courses a list possesses
+	public int numCourses() {
+		return numCourses;
+	}
+	
 	//Parcelable Interface Methods
 	public TicketItemList(Parcel in) {
 		int size = in.readInt();

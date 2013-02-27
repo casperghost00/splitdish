@@ -31,7 +31,7 @@ public class TableDialogFragment extends DialogFragment {
 		mFragmentView = inflater.inflate(R.layout.fragment_table_dialog, container, false);		
 		
 		Fragment noteFrag = new TableNotesFragment();
-    	Fragment listFrag = new TableTicketItemsFragment();
+    	Fragment listFrag = new TableTicketItemsPagerFragment();
     	
 		FragmentTransaction fTrans = getChildFragmentManager().beginTransaction();
 		fTrans.addToBackStack("list");
