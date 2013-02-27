@@ -41,13 +41,6 @@ public class TicketItemList extends ArrayList<TicketItem> implements Parcelable 
 		}
 	}
 	
-	public TicketItemList(Parcel in) {
-		int size = in.readInt();
-		for(int i=0;i<size;i++) {
-			this.add(new TicketItem(in));
-		}
-	}
-	
 	public TicketItemList getCourseList(int courseNum) {
 		TicketItemList courseList = new TicketItemList();
 		
@@ -59,6 +52,14 @@ public class TicketItemList extends ArrayList<TicketItem> implements Parcelable 
 			}
 		}
 		return courseList;
+	}
+	
+	//Parcelable Interface Methods
+	public TicketItemList(Parcel in) {
+		int size = in.readInt();
+		for(int i=0;i<size;i++) {
+			this.add(new TicketItem(in));
+		}
 	}
 
 	@Override
