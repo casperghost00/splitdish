@@ -72,11 +72,7 @@ public class ItemSelectionActivity extends Activity {
 			    
 	        	itemPressed(parent,view,position,id);
 	        	
-	        	refreshSubtotal();
-			    //FRUITS.remove(position);
-			    
-			    //adapter.notifyDataSetChanged();
-        	
+	        	refreshSubtotal();        	
             }
 	    });
 	}
