@@ -29,6 +29,10 @@
             android:name="com.splitdish.pos.menu.MenuPagerActivity"
             android:label="@string/title_activity_menu" >
         </activity>
+        <activity
+            android:name="com.splitdish.pos.SampleMenuActivity"
+            android:label="@string/title_activity_sample_menu" >
+        </activity>
     </application>
 
 </manifest>
