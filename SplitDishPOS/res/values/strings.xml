@@ -10,5 +10,7 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_show_popup">ShowPopupActivity</string>
     <string name="title_activity_table_popup_fragment">TablePopupFragment</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

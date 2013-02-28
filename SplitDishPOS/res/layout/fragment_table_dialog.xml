@@ -44,6 +44,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="35"
-        android:orientation="horizontal"  />
+        android:orientation="horizontal"
+        android:baselineAligned="false" > 
+	    <FrameLayout 
+	        android:id="@+id/note_fragment_placeholder"
+	        android:layout_width="0dp"
+	        android:layout_height="match_parent"
+	        android:layout_weight="50" />"
+        
+  	</LinearLayout>
 
 </LinearLayout>

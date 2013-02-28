@@ -1,10 +1,13 @@
-package com.splitdish.pos;
+package com.splitdish.pos.floor;
 
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.splitdish.pos.R;
+import com.splitdish.pos.R.drawable;
 
 import android.content.Context;
 import android.view.Gravity;

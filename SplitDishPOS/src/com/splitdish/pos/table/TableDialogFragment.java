@@ -1,14 +1,17 @@
-package com.splitdish.pos;
+package com.splitdish.pos.table;
+
+import com.splitdish.pos.R;
+import com.splitdish.pos.R.id;
+import com.splitdish.pos.R.layout;
+import com.splitdish.pos.floor.FloorSectionFragment;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 public class TableDialogFragment extends DialogFragment {
 	
@@ -40,7 +43,7 @@ public class TableDialogFragment extends DialogFragment {
 
 		fTrans = getChildFragmentManager().beginTransaction();
 		fTrans.addToBackStack("note");
-		fTrans.add(R.id.bottom_dialog_layout, noteFrag, "note");
+		fTrans.add(R.id.note_fragment_placeholder, noteFrag, "note");
 		fTrans.commit();
 		
 		return mFragmentView;
