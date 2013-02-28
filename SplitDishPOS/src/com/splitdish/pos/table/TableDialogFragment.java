@@ -31,7 +31,7 @@ public class TableDialogFragment extends DialogFragment {
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 			Bundle savedInstanceState) {
-		mFragmentView = inflater.inflate(R.layout.fragment_table_dialog, container, false);		
+		mFragmentView = inflater.inflate(R.layout.table_dialog_fragment, container, false);		
 		
 		Fragment noteFrag = new TableNotesFragment();
     	Fragment listFrag = new TableTicketItemsPagerFragment();

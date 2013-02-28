@@ -42,7 +42,7 @@ public class FloorActivity extends FragmentActivity implements ActionBar.TabList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.floor_main);
+        setContentView(R.layout.floor_main_pager);
         // Create the adapter that will return a fragment for each of the three primary sections
         // of the app.
 

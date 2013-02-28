@@ -28,7 +28,7 @@ public class MenuActivity extends FragmentActivity implements ActionBar.TabListe
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_menu);
+		setContentView(R.layout.menu_main_pager);
 		
 		mSectionsPagerAdapter = new MenuSectionsPagerAdapter(getSupportFragmentManager());
 
