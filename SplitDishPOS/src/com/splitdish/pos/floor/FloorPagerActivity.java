@@ -23,7 +23,7 @@ import com.splitdish.pos.R.layout;
 import com.splitdish.pos.R.menu;
 import com.splitdish.pos.R.raw;
 
-public class FloorActivity extends FragmentActivity implements ActionBar.TabListener {
+public class FloorPagerActivity extends FragmentActivity implements ActionBar.TabListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide fragments for each of the

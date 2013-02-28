@@ -17,7 +17,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 
-public class MenuActivity extends FragmentActivity implements ActionBar.TabListener {
+public class MenuPagerActivity extends FragmentActivity implements ActionBar.TabListener {
    
 	MenuSectionsPagerAdapter mSectionsPagerAdapter;
 
