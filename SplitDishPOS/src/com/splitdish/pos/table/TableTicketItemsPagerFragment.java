@@ -1,4 +1,4 @@
-package com.splitdish.pos;
+package com.splitdish.pos.table;
 
 import java.io.IOException;
 
@@ -19,6 +19,10 @@ import android.view.ViewGroup;
 
 import com.splitdish.lib.TicketItemList;
 import com.splitdish.lib.Utilities;
+import com.splitdish.pos.R;
+import com.splitdish.pos.R.id;
+import com.splitdish.pos.R.layout;
+import com.splitdish.pos.R.raw;
 
 public class TableTicketItemsPagerFragment extends Fragment implements ActionBar.TabListener {
 

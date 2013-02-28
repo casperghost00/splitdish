@@ -1,4 +1,7 @@
-package com.splitdish.pos;
+package com.splitdish.pos.table;
+
+import com.splitdish.pos.R;
+import com.splitdish.pos.R.layout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

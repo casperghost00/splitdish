@@ -1,4 +1,4 @@
-package com.splitdish.pos;
+package com.splitdish.pos.floor;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,10 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.splitdish.pos.FloorMap.FloorArea;
-import com.splitdish.pos.FloorMap.Table;
+import com.splitdish.pos.R;
+import com.splitdish.pos.floor.FloorMap.FloorArea;
+import com.splitdish.pos.floor.FloorMap.Table;
+import com.splitdish.pos.table.TableDialogFragment;
 
 public class FloorSectionFragment extends Fragment {
 	
