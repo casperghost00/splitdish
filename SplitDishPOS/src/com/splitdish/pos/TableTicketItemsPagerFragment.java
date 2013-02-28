@@ -41,7 +41,7 @@ public class TableTicketItemsPagerFragment extends Fragment implements ActionBar
     
     public View onCreateView(LayoutInflater inflater, ViewGroup container, 
     		Bundle savedInstanceState) {
-    	View fragmentView = inflater.inflate(R.layout.fragment_ticket_list_pager, container, false);
+    	View fragmentView = inflater.inflate(R.layout.table_ticket_items_pager, container, false);
 
         mSectionsPagerAdapter = new TicketItemsPagerAdapter(getChildFragmentManager());
 

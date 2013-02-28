@@ -59,7 +59,7 @@ public class TableTicketItemsFragment extends Fragment {
 		Bundle savedInstanceState) {
 	  	    
 	    // Inflate the layout for this fragment
-	    mFragmentView = inflater.inflate(R.layout.fragment_table_ticket_items, container, false);
+	    mFragmentView = inflater.inflate(R.layout.table_ticket_items_fragment, container, false);
 
 	    //Set the title of the ListView with the Course
 	    TextView tView = (TextView)mFragmentView.findViewById(R.id.courseTitle);

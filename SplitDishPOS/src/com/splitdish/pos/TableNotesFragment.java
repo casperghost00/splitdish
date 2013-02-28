@@ -13,7 +13,7 @@ public class TableNotesFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 			Bundle savedInstanceState) {
-		mFragmentView = inflater.inflate(R.layout.fragment_table_notes, container, false);
+		mFragmentView = inflater.inflate(R.layout.table_notes_fragment, container, false);
 		
 		return mFragmentView;
 	}
