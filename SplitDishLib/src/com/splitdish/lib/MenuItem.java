@@ -5,34 +5,30 @@ import org.json.JSONObject;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-//TODO Deduplicate data by referencing menu items via database or other data structure
-public class TicketItem implements Parcelable{
+
+public class MenuItem implements Parcelable{
 	
 	String title;
 	String description;
-	String notes;
 	int price; //price in cents
 	Boolean selected = false;
 	int course = 0; //what course number does the item belong to
 	
-	public TicketItem(JSONObject jsonItem) throws JSONException {
+	public MenuItem(JSONObject jsonItem) throws JSONException {
 		title = jsonItem.getString("title");
 		description = jsonItem.getString("description");
-		notes = jsonItem.getString("notes");
 		price = jsonItem.getInt("price");		
 	}
 	
-	public TicketItem(String title, String desc, String notes, int price) {
+	public MenuItem(String title, String desc, String notes, int price) {
 		this.title = title;
 		this.description = desc;
-		this.notes = notes;
 		this.price = price;
 	}
 	
-	public TicketItem (Parcel in) {
+	public MenuItem(Parcel in) {
 		title = in.readString();
 		description = in.readString();
-		notes = in.readString();
 		price = in.readInt();
 		selected = in.readByte() == 1;
 	}
@@ -46,7 +42,6 @@ public class TicketItem implements Parcelable{
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(title);
 		dest.writeString(description);
-		dest.writeString(notes);
 		dest.writeInt(price);
 		dest.writeByte((byte)(selected ? 1:0));
 	}
@@ -71,9 +66,6 @@ public class TicketItem implements Parcelable{
     }
 	public String getDescription(){
 		return description;
-	}
-	public String getNotes() {
-		return notes;
 	}
 	public int getPrice() {
 		return price; //price in cents
