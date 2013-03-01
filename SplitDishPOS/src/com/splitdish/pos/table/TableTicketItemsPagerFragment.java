@@ -5,8 +5,8 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,9 +20,6 @@ import android.view.ViewGroup;
 import com.splitdish.lib.TicketItemList;
 import com.splitdish.lib.Utilities;
 import com.splitdish.pos.R;
-import com.splitdish.pos.R.id;
-import com.splitdish.pos.R.layout;
-import com.splitdish.pos.R.raw;
 
 public class TableTicketItemsPagerFragment extends Fragment implements ActionBar.TabListener {
 

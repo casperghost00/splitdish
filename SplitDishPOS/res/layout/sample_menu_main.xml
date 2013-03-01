@@ -1,0 +1,137 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+	<GridLayout 
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:layout_centerHorizontal="true"
+	    android:rowCount="5"
+	    android:columnCount="5"
+	    tools:context=".SampleMenuActivity" >
+	
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_a" />
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_b" />
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_c" />
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_d" />
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_e" />
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_f" />
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_g" />
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_h" />
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_i" />
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_j" />
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_k" />
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_l" />
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_m" />
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_n" />
+	    <ImageView
+	        android:layout_width="120dp"
+	        android:layout_height="120dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp"
+	        android:src="@drawable/letter_o" />
+	    
+	
+	</GridLayout>
+</RelativeLayout>
