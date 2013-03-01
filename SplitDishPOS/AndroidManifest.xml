@@ -15,23 +15,20 @@
         <activity
             android:name="com.splitdish.pos.floor.FloorPagerActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.splitdish.pos.ShowPopupActivity"
-            android:label="@string/title_activity_show_popup" >
+            
         </activity>
         <activity
             android:name="com.splitdish.pos.menu.MenuPagerActivity"
             android:label="@string/title_activity_menu" >
         </activity>
         <activity
-            android:name="com.splitdish.pos.SampleMenuActivity"
+            android:name="com.splitdish.pos.menu.SampleMenuActivity"
             android:label="@string/title_activity_sample_menu" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
