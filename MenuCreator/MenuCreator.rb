@@ -4,9 +4,8 @@ require 'json'
 class MenuCreator
  
   def initialize(old_menu_path = nil)
-    if(old_menu_path.nil?)
-      @item_array = Array.new
-    else
+    @item_array = Array.new
+    unless(old_menu_path.nil?)
       old_menu_json = ""
       File.open(old_menu_path, 'r').each_line do |line|
         old_menu_json << line
@@ -17,7 +16,6 @@ class MenuCreator
   
   def parse_old_menu_json(old_menu_json)
     menu = JSON.parse(old_menu_json)
-    puts old_menu_json
     menu.each do |item|
       @item_array << MenuItem.new(item)
     end
@@ -53,7 +51,7 @@ class MenuCreator
   
   def get_item_description(menu_item)
     print "Describe the item: "
-    menu_item.description = gets
+    menu_item.description = gets.chomp
   end
   
   def get_item_category(menu_item)
@@ -84,11 +82,11 @@ class MenuItem
   
   def initialize(init_params ={})
     unless(init_params.empty?)
-      @id = init_params[:id]
-      @name = init_params[:name]
-      @description = init_params[:description]
-      @category = init_params[:category]
-      @price = init_params[:price]
+      @id = init_params["id"]
+      @name = init_params["name"]
+      @description = init_params["description"]
+      @category = init_params["category"]
+      @price = init_params["price"]
     end
   end
   
@@ -103,6 +101,6 @@ class MenuItem
   end
 end
 
-creator = MenuCreator.new("MenuOutput/test.json")
+creator = MenuCreator.new("MenuOutput/sample.json")
 #creator = MenuCreator.new()
 creator.start_menu_creation("MenuOutput/sample.json")
