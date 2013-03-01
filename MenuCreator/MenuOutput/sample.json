@@ -173,5 +173,47 @@
     "description": "Catfish with a wild sesame flavor",
     "category": "Entree",
     "price": 2199
+  },
+  {
+    "id": 26,
+    "name": "Alaskan Salmon",
+    "description": "Fresh caught wild salmon",
+    "category": "Entree",
+    "price": 2499
+  },
+  {
+    "id": 27,
+    "name": "Wasabi Halibut",
+    "description": "Wasabi crusted halibut",
+    "category": "Entree",
+    "price": 2399
+  },
+  {
+    "id": 28,
+    "name": "Spaghetti and Meatballs",
+    "description": "",
+    "category": "Entree",
+    "price": 1399
+  },
+  {
+    "id": 29,
+    "name": "Nachos",
+    "description": "Fully loaded tortilla chips with nacho cheese",
+    "category": "Appetizer",
+    "price": 999
+  },
+  {
+    "id": 30,
+    "name": "Chocolate Milk",
+    "description": "Rich 2% Chocolate Milk",
+    "category": "Drink",
+    "price": 399
+  },
+  {
+    "id": 31,
+    "name": "Hand-scooped Milk Shake",
+    "description": "",
+    "category": "Drink",
+    "price": 599
   }
 ]
