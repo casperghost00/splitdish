@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Chicken",
+    "description": "Plain\n",
+    "category": "Entree",
+    "price": 1299
+  },
+  {
+    "id": 2,
+    "name": "Burger",
+    "description": "Quarter Pounder\n",
+    "category": "Entree",
+    "price": 999
+  }
+]
