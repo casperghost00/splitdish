@@ -1,6 +1,7 @@
 package com.splitdish.lib;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,9 +11,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class MenuItemList extends ArrayList<MenuItem> implements Parcelable {
-	
-	int numMenuCategories = 0;
-	MenuItemList[] mMenuCategoryList;
+
+	private static final long serialVersionUID = -4182332833418859270L;
+	private int numMenuCategories = 0;
+	private ArrayList<String> categoriesList = null;
 	
 	public MenuItemList() {
 		super();
@@ -22,43 +24,52 @@ public class MenuItemList extends ArrayList<MenuItem> implements Parcelable {
 		super();
 		
 		JSONArray jMenuItems = new JSONArray();
-		JSONArray jMenuCategories = new JSONArray();
-		
-		jMenuCategories = jsonMenuItems.getJSONArray("category");
+		jMenuItems = jsonMenuItems.getJSONArray("menu_items");
 
 		JSONObject jItem = null;
 		MenuItem item = null;
-		numMenuCategories = jMenuCategories.length();
-		for(int i=0;i<numMenuCategories;i++) {
-			jMenuItems = jMenuCategories.getJSONObject(i).getJSONArray("items");
-
-			for(int j=0;j<jMenuItems.length();j++) {
-				jItem = jMenuItems.getJSONObject(j);
-				item = new MenuItem(jItem);
-				item.setCourse(i);
-				add(item);
-			}
+		HashSet<String> noDupList = new HashSet<String>();
+		
+		for(int i=0;i<jMenuItems.length();i++) {
+			jItem = jMenuItems.getJSONObject(i);
+			item = new MenuItem(jItem);
+			noDupList.add(item.getCategory());
+			add(item);
 		}
+		numMenuCategories = noDupList.size();
+		
 	}
 	
-	public MenuItemList getCourseList(int courseNum) {
+	// Returns a MenuItemList of all items under a specified category.
+	public MenuItemList getListByCategory(String category) {
 		MenuItemList categoryList = new MenuItemList();
 		
 		MenuItem item = null;
 		for(int i=0;i<size();i++) {
 			item = get(i);
-			if(item.getCourse()==courseNum) {
+			if(item.getCategory().compareTo(category) == 0) {
 				categoryList.add(item);
 			}
 		}
 		return categoryList;
 	}
 	
-
-	
 	// Returns how many unique courses a list possesses
-	public int numCourses() {
+	public int getCategoriesCount() {
 		return numMenuCategories;
+	}
+	
+	public ArrayList<String> getCategoriesList() {
+		
+		HashSet<String> noDupList = new HashSet<String>();
+		
+		for(int i=0;i<this.size();i++) {
+			noDupList.add(get(i).getCategory());
+		}
+		categoriesList = new ArrayList<String>();
+		categoriesList.addAll(noDupList);
+		
+		return categoriesList;
 	}
 	
 	//Parcelable Interface Methods

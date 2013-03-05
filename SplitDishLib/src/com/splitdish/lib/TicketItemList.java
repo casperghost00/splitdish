@@ -11,6 +11,7 @@ import android.os.Parcelable;
 
 public class TicketItemList extends ArrayList<TicketItem> implements Parcelable {
 	
+	private static final long serialVersionUID = 7586756316979267439L;
 	int numCourses = 0;
 	TicketItemList[] courseList;
 	
