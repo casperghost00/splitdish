@@ -1,17 +1,18 @@
 package com.splitdish.pos.table;
 
-import com.splitdish.pos.R;
-import com.splitdish.pos.R.id;
-import com.splitdish.pos.R.layout;
-import com.splitdish.pos.floor.FloorSectionFragment;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+
+import com.splitdish.pos.R;
+import com.splitdish.pos.floor.FloorSectionFragment;
+import com.splitdish.pos.menu.MenuPagerActivity;
 
 public class TableDialogFragment extends DialogFragment {
 	
@@ -46,6 +47,8 @@ public class TableDialogFragment extends DialogFragment {
 		fTrans.add(R.id.note_fragment_placeholder, noteFrag, "note");
 		fTrans.commit();
 		
+		mFragmentView.findViewById(R.id.add_item_button).setOnClickListener(menuOnClickListener);
+		
 		return mFragmentView;
 	}
 	
@@ -54,4 +57,11 @@ public class TableDialogFragment extends DialogFragment {
 
 	    getDialog().setTitle("Table " +mTableName);
 	}
+	
+	private OnClickListener menuOnClickListener = new OnClickListener() {
+        public void onClick(View v) {
+        	Intent intent = new Intent(getActivity(), MenuPagerActivity.class);
+        	startActivity(intent);
+        }
+    }; 
 }

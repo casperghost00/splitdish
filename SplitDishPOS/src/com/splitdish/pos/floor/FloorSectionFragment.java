@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,7 +34,6 @@ public class FloorSectionFragment extends Fragment {
 	private static final int Y_COORD = 1;
 	private enum ZoomLevel {close, standard, far}; 
 	
-	private PopupWindow popUp;
 	private FloorMap fMap = null;
 	
 	public FloorSectionFragment() {}
@@ -78,12 +76,6 @@ public class FloorSectionFragment extends Fragment {
     	relLayout.addView(floorGrid);
     	
         return relLayout;
-    }
-    
-    @Override
-    public void onResume() {
-    	super.onResume();
-    	
     }
     
     // Creates a RelativeLayout based on the given FloorArea name and source file

@@ -3,9 +3,12 @@ package com.splitdish.pos.menu;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 
@@ -13,32 +16,43 @@ import com.splitdish.lib.MenuItem;
 import com.splitdish.lib.MenuItemList;
 import com.splitdish.pos.R;
 
-public class SampleMenuActivity extends Activity {
-
-	MenuItemList mMenuItemList;
+public class MenuPageFragment extends Fragment {
 	
+	public static final String ARGS_CATEGORY_TITLE = "com.splitdish.pos.menu.ARGS_CATEGORY_TITLE";
+	
+	private MenuItemList mMenuItemList = null;
+	private String mCategory = null;
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.menu_page_fragment);
-
-		mMenuItemList = GlobalMenu.getGlobalMenu();
-		addLettersToMenu();
 		
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.sample_menu_main, menu);
-		return true;
+		Bundle args = getArguments();
+		mCategory = args.getString(ARGS_CATEGORY_TITLE);
+        
 	}
 	
-	private void addLettersToMenu() {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+    	
+
+		mMenuItemList = GlobalMenu.getGlobalMenu().getListByCategory(mCategory);
+    	
+    	View menuView = inflater.inflate(R.layout.menu_page_fragment, container, false);
+    	
+
+		addLettersToMenu(menuView);
+    	
+    	return menuView;
+    }
+    
+
+	private void addLettersToMenu(View menuView) {
 
 		ImageView letterView = null;
 		GridLayout.LayoutParams params = null;
-		GridLayout grid = (GridLayout)this.findViewById(R.id.menu_grid_layout);
+		//TODO Fix this
+		GridLayout grid = (GridLayout)menuView.findViewById(R.id.menu_grid_layout);
 		HashSet<Character> charHash = new HashSet<Character>();
 		for(MenuItem item : mMenuItemList) {
 			char firstChar = item.getName().charAt(0);
@@ -51,7 +65,7 @@ public class SampleMenuActivity extends Activity {
 		
 		for(Character c : sortedChars) {
 			
-			letterView = new ImageView(this);
+			letterView = new ImageView(getActivity());
 			params = new GridLayout.LayoutParams();
 			
 			letterView.setImageResource(letterToResource(c));
@@ -97,5 +111,4 @@ public class SampleMenuActivity extends Activity {
 		}		
 		return 0;
 	}
-
 }

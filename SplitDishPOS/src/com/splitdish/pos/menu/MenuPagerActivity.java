@@ -1,10 +1,7 @@
 package com.splitdish.pos.menu;
 
-import com.splitdish.pos.R;
-import com.splitdish.pos.R.id;
-import com.splitdish.pos.R.layout;
-import com.splitdish.pos.R.menu;
-import com.splitdish.pos.floor.FloorSectionFragment;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -15,20 +12,24 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
+
+import com.splitdish.lib.MenuItemList;
+import com.splitdish.pos.R;
 
 public class MenuPagerActivity extends FragmentActivity implements ActionBar.TabListener {
    
-	MenuSectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    ViewPager mViewPager;
+	private MenuSectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
+    private MenuItemList mMenuItemList = null;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.menu_main_pager);
+		
+		mMenuItemList = GlobalMenu.getGlobalMenu();
 		
 		mSectionsPagerAdapter = new MenuSectionsPagerAdapter(getSupportFragmentManager());
 
@@ -37,7 +38,7 @@ public class MenuPagerActivity extends FragmentActivity implements ActionBar.Tab
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (ViewPager) findViewById(R.id.menu_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         // When swiping between different sections, select the corresponding tab.
@@ -71,31 +72,41 @@ public class MenuPagerActivity extends FragmentActivity implements ActionBar.Tab
 	
 	public class MenuSectionsPagerAdapter extends FragmentPagerAdapter {
  
-        String[] menuSections;
+        ArrayList<String> menuCategories = null;
         
         public MenuSectionsPagerAdapter(FragmentManager fm) {
             super(fm);
             
+            menuCategories = mMenuItemList.getCategoriesList();
+            
+            HashSet<String> noDupList = new HashSet<String>();
+    		ArrayList<String> categoriesList = new ArrayList<String>();
+    		Log.d("LISTSIZE", Integer.toString(mMenuItemList.size()));
+    		for(int i=0;i<mMenuItemList.size();i++) {
+    			noDupList.add(mMenuItemList.get(i).getCategory());
+    		}
+    		categoriesList = new ArrayList<String>();
+    		categoriesList.addAll(noDupList);
             
         }
 
         @Override
         public Fragment getItem(int i) {
-            Fragment fragment = new FloorSectionFragment();
+            Fragment fragment = new MenuPageFragment();
             Bundle args = new Bundle();
-            args.putString(FloorSectionFragment.ARG_AREA_TITLE, menuSections[i]);
+            args.putString(MenuPageFragment.ARGS_CATEGORY_TITLE, menuCategories.get(i));
             fragment.setArguments(args);
             return fragment;
         }
 
         @Override
         public int getCount() {
-            return menuSections.length;
+            return menuCategories.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return menuSections[position];
+            return menuCategories.get(position);
         }
     }
 
@@ -104,10 +115,10 @@ public class MenuPagerActivity extends FragmentActivity implements ActionBar.Tab
 		
 	}
 
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        // When the given tab is selected, switch to the corresponding page in the ViewPager.
+        mViewPager.setCurrentItem(tab.getPosition());
+    }
 
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
