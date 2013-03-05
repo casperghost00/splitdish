@@ -17,8 +17,10 @@ import android.view.Menu;
 
 import com.splitdish.lib.MenuItemList;
 import com.splitdish.pos.R;
+import com.splitdish.pos.menu.MenuPageFragment.OnLetterSelectedListener;
 
-public class MenuPagerActivity extends FragmentActivity implements ActionBar.TabListener {
+public class MenuPagerActivity extends FragmentActivity 
+			implements ActionBar.TabListener, OnLetterSelectedListener {
    
 	private MenuSectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -122,6 +124,10 @@ public class MenuPagerActivity extends FragmentActivity implements ActionBar.Tab
 
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	public void onLetterSelected(char selectedChar) {
 		
 	}
 

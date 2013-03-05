@@ -3,11 +3,12 @@ package com.splitdish.pos.menu;
 import java.util.HashSet;
 import java.util.TreeSet;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -22,6 +23,19 @@ public class MenuPageFragment extends Fragment {
 	
 	private MenuItemList mMenuItemList = null;
 	private String mCategory = null;
+	
+	OnLetterSelectedListener mListener;
+	
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnLetterSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnLetterSelectedListener");
+        }
+    }
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,8 +65,11 @@ public class MenuPageFragment extends Fragment {
 
 		ImageView letterView = null;
 		GridLayout.LayoutParams params = null;
-		//TODO Fix this
+		
 		GridLayout grid = (GridLayout)menuView.findViewById(R.id.menu_grid_layout);
+		
+		// Get all the unique first letters of menu items and order them
+		// for adding to the MenuPageFragment
 		HashSet<Character> charHash = new HashSet<Character>();
 		for(MenuItem item : mMenuItemList) {
 			char firstChar = item.getName().charAt(0);
@@ -63,7 +80,10 @@ public class MenuPageFragment extends Fragment {
 		
 		TreeSet<Character> sortedChars = new TreeSet<Character>(charHash);
 		
+		// Add a view of the letters respective drawable to the
+		// MenuPageFragment's GridLayout
 		for(Character c : sortedChars) {
+			final char clickedChar = c;
 			
 			letterView = new ImageView(getActivity());
 			params = new GridLayout.LayoutParams();
@@ -73,6 +93,13 @@ public class MenuPageFragment extends Fragment {
 			params.width = 150;
 			params.height = 150;
 			letterView.setPadding(15, 15, 15, 15);
+			
+			// Communicate what letter has been pressed back to parent Activity
+			letterView.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					mListener.onLetterSelected(clickedChar);
+				}
+			});
 			
 			letterView.setLayoutParams(params);
 			grid.addView(letterView);
@@ -111,4 +138,9 @@ public class MenuPageFragment extends Fragment {
 		}		
 		return 0;
 	}
+	
+	// Container Activity must implement this interface
+    public interface OnLetterSelectedListener {
+        public void onLetterSelected(char selectedChar);
+    }
 }

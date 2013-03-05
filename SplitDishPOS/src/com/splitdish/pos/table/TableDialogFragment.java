@@ -38,12 +38,10 @@ public class TableDialogFragment extends DialogFragment {
     	Fragment listFrag = new TableTicketItemsPagerFragment();
     	
 		FragmentTransaction fTrans = getChildFragmentManager().beginTransaction();
-		fTrans.addToBackStack("list");
 		fTrans.add(R.id.list_fragment_placeholder, listFrag, "list");
 		fTrans.commit();
 
 		fTrans = getChildFragmentManager().beginTransaction();
-		fTrans.addToBackStack("note");
 		fTrans.add(R.id.note_fragment_placeholder, noteFrag, "note");
 		fTrans.commit();
 		
