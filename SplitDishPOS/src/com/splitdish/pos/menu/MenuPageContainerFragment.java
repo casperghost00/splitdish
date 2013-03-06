@@ -71,9 +71,15 @@ public static final String ARGS_CATEGORY_TITLE = "com.splitdish.pos.menu.ARGS_CA
 
 	public void onLetterSelected(char selectedChar) {
 		FragmentTransaction fTrans = getChildFragmentManager().beginTransaction();
-		Fragment listFrag = new TableTicketItemsPagerFragment();
+		Fragment subMenuFrag = new MenuSubPageFragment();
+		
+		Bundle args = new Bundle();
+		args.putString(MenuSubPageFragment.ARGS_CATEGORY_TITLE, mCategory);
+		args.putChar(MenuSubPageFragment.ARGS_FIRST_LETTER, selectedChar);
+		
+		subMenuFrag.setArguments(args);
     	
-		fTrans.replace(R.id.menu_page_placeholder, listFrag, "list");
+		fTrans.replace(R.id.menu_page_placeholder, subMenuFrag, "subMenu");
 		fTrans.addToBackStack(null);
 		fTrans.commit();
 		
