@@ -3,9 +3,9 @@ package com.splitdish.pos.menu;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,8 +16,9 @@ import android.widget.ImageView;
 import com.splitdish.lib.MenuItem;
 import com.splitdish.lib.MenuItemList;
 import com.splitdish.pos.R;
+import com.splitdish.pos.table.TableTicketItemsPagerFragment;
 
-public class MenuPageFragment extends Fragment {
+public class MenuMainPageFragment extends Fragment {
 	
 	public static final String ARGS_CATEGORY_TITLE = "com.splitdish.pos.menu.ARGS_CATEGORY_TITLE";
 	
@@ -25,16 +26,6 @@ public class MenuPageFragment extends Fragment {
 	private String mCategory = null;
 	
 	OnLetterSelectedListener mListener;
-	
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnLetterSelectedListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement OnLetterSelectedListener");
-        }
-    }
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,12 +39,10 @@ public class MenuPageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-    	
 
-		mMenuItemList = GlobalMenu.getGlobalMenu().getListByCategory(mCategory);
+		mMenuItemList = GlobalMenu.getGlobalMenu().getSubListByCategory(mCategory);
     	
     	View menuView = inflater.inflate(R.layout.menu_page_fragment, container, false);
-    	
 
 		addLettersToMenu(menuView);
     	
@@ -97,7 +86,8 @@ public class MenuPageFragment extends Fragment {
 			// Communicate what letter has been pressed back to parent Activity
 			letterView.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
-					mListener.onLetterSelected(clickedChar);
+					//mListener.onLetterSelected(clickedChar);
+					((OnLetterSelectedListener)getParentFragment()).onLetterSelected(clickedChar);
 				}
 			});
 			
@@ -137,6 +127,16 @@ public class MenuPageFragment extends Fragment {
 		case 'z': return R.drawable.letter_z;
 		}		
 		return 0;
+	}
+	
+	public void onLetterSelected(char selectedChar) {
+		
+		
+    	Fragment listFrag = new TableTicketItemsPagerFragment();
+    	
+		FragmentTransaction fTrans = getChildFragmentManager().beginTransaction();
+		fTrans.add(R.id.menu_main_layout, listFrag, "list");
+		fTrans.commit();
 	}
 	
 	// Container Activity must implement this interface

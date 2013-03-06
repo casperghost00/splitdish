@@ -5,26 +5,26 @@ import java.util.HashSet;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 
 import com.splitdish.lib.MenuItemList;
 import com.splitdish.pos.R;
-import com.splitdish.pos.menu.MenuPageFragment.OnLetterSelectedListener;
+import com.splitdish.pos.menu.MenuMainPageFragment.OnLetterSelectedListener;
 
 public class MenuPagerActivity extends FragmentActivity 
 			implements ActionBar.TabListener, OnLetterSelectedListener {
    
-	private MenuSectionsPagerAdapter mSectionsPagerAdapter;
+	private MenuSectionsPagerAdapter mMenuPagerAdapter;
     private ViewPager mViewPager;
     private MenuItemList mMenuItemList = null;
+    private FragmentManager mFragmentManager = null;
+    private ArrayList<String> mCategories = null;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +32,11 @@ public class MenuPagerActivity extends FragmentActivity
 		setContentView(R.layout.menu_main_pager);
 		
 		mMenuItemList = GlobalMenu.getGlobalMenu();
+		mFragmentManager = getSupportFragmentManager();
 		
-		mSectionsPagerAdapter = new MenuSectionsPagerAdapter(getSupportFragmentManager());
+		getCategories();
+		
+		mMenuPagerAdapter = new MenuSectionsPagerAdapter(mFragmentManager, mCategories);
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
@@ -41,7 +44,7 @@ public class MenuPagerActivity extends FragmentActivity
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.menu_pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setAdapter(mMenuPagerAdapter);
 
         // When swiping between different sections, select the corresponding tab.
         // We can also use ActionBar.Tab#select() to do this if we have a reference to the
@@ -54,13 +57,13 @@ public class MenuPagerActivity extends FragmentActivity
         });
 
         // For each of the sections in the app, add a tab to the action bar.
-        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+        for (int i = 0; i < mMenuPagerAdapter.getCount(); i++) {
             // Create a tab with text corresponding to the page title defined by the adapter.
             // Also specify this Activity object, which implements the TabListener interface, as the
             // listener for when this tab is selected.
             actionBar.addTab(
                     actionBar.newTab()
-                            .setText(mSectionsPagerAdapter.getPageTitle(i))
+                            .setText(mMenuPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
 	}
@@ -72,32 +75,24 @@ public class MenuPagerActivity extends FragmentActivity
 		return true;
 	}
 	
-	public class MenuSectionsPagerAdapter extends FragmentPagerAdapter {
+	public class MenuSectionsPagerAdapter extends FragmentStatePagerAdapter {
  
         ArrayList<String> menuCategories = null;
         
-        public MenuSectionsPagerAdapter(FragmentManager fm) {
+        public MenuSectionsPagerAdapter(FragmentManager fm, ArrayList<String> menuCategories) {
             super(fm);
             
-            menuCategories = mMenuItemList.getCategoriesList();
-            
-            HashSet<String> noDupList = new HashSet<String>();
-    		ArrayList<String> categoriesList = new ArrayList<String>();
-    		Log.d("LISTSIZE", Integer.toString(mMenuItemList.size()));
-    		for(int i=0;i<mMenuItemList.size();i++) {
-    			noDupList.add(mMenuItemList.get(i).getCategory());
-    		}
-    		categoriesList = new ArrayList<String>();
-    		categoriesList.addAll(noDupList);
+            this.menuCategories = menuCategories;
             
         }
 
         @Override
         public Fragment getItem(int i) {
-            Fragment fragment = new MenuPageFragment();
+            Fragment fragment = new MenuPageContainerFragment();
             Bundle args = new Bundle();
-            args.putString(MenuPageFragment.ARGS_CATEGORY_TITLE, menuCategories.get(i));
+            args.putString(MenuMainPageFragment.ARGS_CATEGORY_TITLE, menuCategories.get(i));
             fragment.setArguments(args);
+            
             return fragment;
         }
 
@@ -110,25 +105,38 @@ public class MenuPagerActivity extends FragmentActivity
         public CharSequence getPageTitle(int position) {
             return menuCategories.get(position);
         }
+        
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
     }
 
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {}
 
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+    public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction fragmentTransaction) {
         // When the given tab is selected, switch to the corresponding page in the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
     }
 
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {}
 	
 	public void onLetterSelected(char selectedChar) {
-		
+		int position = mViewPager.getCurrentItem();
+        mCategories.remove(position);
+        mMenuPagerAdapter.notifyDataSetChanged();
 	}
 
+	private void getCategories() {
+		mCategories = mMenuItemList.getCategoriesList();
+        
+        HashSet<String> noDupList = new HashSet<String>();
+		ArrayList<String> categoriesList = new ArrayList<String>();
+
+		for(int i=0;i<mMenuItemList.size();i++) {
+			noDupList.add(mMenuItemList.get(i).getCategory());
+		}
+		categoriesList = new ArrayList<String>();
+		categoriesList.addAll(noDupList);
+	}
 }
