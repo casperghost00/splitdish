@@ -41,7 +41,7 @@ public class MenuItemList extends ArrayList<MenuItem> implements Parcelable {
 	}
 	
 	// Returns a MenuItemList of all items under a specified category.
-	public MenuItemList getListByCategory(String category) {
+	public MenuItemList getSubListByCategory(String category) {
 		MenuItemList categoryList = new MenuItemList();
 		
 		MenuItem item = null;
@@ -70,6 +70,17 @@ public class MenuItemList extends ArrayList<MenuItem> implements Parcelable {
 		categoriesList.addAll(noDupList);
 		
 		return categoriesList;
+	}
+	
+	public MenuItemList getSubListByFirstLetter(char firstLetter) {
+		MenuItemList letterList = new MenuItemList();
+		
+		for(MenuItem m : this) {
+			if(m.getName().charAt(0) == firstLetter) {
+				letterList.add(m);
+			}
+		}
+		return letterList;
 	}
 	
 	//Parcelable Interface Methods
