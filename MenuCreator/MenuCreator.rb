@@ -15,7 +15,7 @@ class MenuCreator
   end
   
   def parse_old_menu_json(old_menu_json)
-    menu = JSON.parse(old_menu_json)
+    menu = JSON.parse(old_menu_json)["menu_items"]
     menu.each do |item|
       @item_array << MenuItem.new(item)
     end
@@ -42,7 +42,7 @@ class MenuCreator
       @item_array << menu_item
       continue = add_more_items?
     end
-    File.open(file_destination, 'w') { |file| file.write(JSON.pretty_generate(@item_array)) }
+    File.open(file_destination, 'w') { |file| file.write(JSON.pretty_generate({"menu_items"=>@item_array})) }
   end
   def get_item_name(menu_item)
     print "Item Name: "
