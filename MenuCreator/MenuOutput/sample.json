@@ -1,219 +1,235 @@
-[
-  {
-    "id": 1,
-    "name": "BBQ Chicken",
-    "description": "",
-    "category": "Entree",
-    "price": 1299
-  },
-  {
-    "id": 2,
-    "name": "Cheeseburger",
-    "description": "Quarter Pounder",
-    "category": "Entree",
-    "price": 999
-  },
-  {
-    "id": 3,
-    "name": "Filet Mignon",
-    "description": "Filet Mignon Wrapped in Bacon",
-    "category": "Entree",
-    "price": 2299
-  },
-  {
-    "id": 4,
-    "name": "Pasta Alfredo",
-    "description": "Fetuccini with a rich Alfredo Sauce",
-    "category": "Entree",
-    "price": 1599
-  },
-  {
-    "id": 5,
-    "name": "Dr. Pepper",
-    "description": "",
-    "category": "Drink",
-    "price": 250
-  },
-  {
-    "id": 6,
-    "name": "Sprite",
-    "description": "",
-    "category": "Drink",
-    "price": 250
-  },
-  {
-    "id": 7,
-    "name": "Coke",
-    "description": "",
-    "category": "Drink",
-    "price": 250
-  },
-  {
-    "id": 8,
-    "name": "Waldorf Salad",
-    "description": "Super girly salad",
-    "category": "Entree",
-    "price": 1099
-  },
-  {
-    "id": 9,
-    "name": "Barbeque Chicken Salad",
-    "description": "Chopped salad with BBQ Chicken, Ranch, and BBQ Sauce",
-    "category": "Entree",
-    "price": 1299
-  },
-  {
-    "id": 10,
-    "name": "Brownie a la Mode",
-    "description": "Brownie with Vanilla Ice Cream on top",
-    "category": "Dessert",
-    "price": 599
-  },
-  {
-    "id": 11,
-    "name": "Hot Fudge Sundae",
-    "description": "Ice cream with nuts, melted fudge, and a cherry on top",
-    "category": "Dessert",
-    "price": 599
-  },
-  {
-    "id": 12,
-    "name": "Apple Pie",
-    "description": "",
-    "category": "Dessert",
-    "price": 699
-  },
-  {
-    "id": 13,
-    "name": "Tiramisu",
-    "description": "",
-    "category": "Dessert",
-    "price": 699
-  },
-  {
-    "id": 14,
-    "name": "Lemon Bar",
-    "description": "Decadent lemon pastry",
-    "category": "Dessert",
-    "price": 599
-  },
-  {
-    "id": 15,
-    "name": "Potato Skins",
-    "description": "Potato skins with sour cream and bbq sauce",
-    "category": "Appetizer",
-    "price": 799
-  },
-  {
-    "id": 16,
-    "name": "Calamari",
-    "description": "Fried calamari",
-    "category": "Appetizer",
-    "price": 899
-  },
-  {
-    "id": 17,
-    "name": "Beef Sliders",
-    "description": "Mini burgers served whatever way you want",
-    "category": "Appetizer",
-    "price": 799
-  },
-  {
-    "id": 18,
-    "name": "Mozzarella Sticks",
-    "description": "Gooey, deep fried cheese with marinara",
-    "category": "Appetizer",
-    "price": 599
-  },
-  {
-    "id": 19,
-    "name": "Long Island Iced Tea",
-    "description": "It'll get you drunk!",
-    "category": "Drink",
-    "price": 799
-  },
-  {
-    "id": 20,
-    "name": "Fat Tire Amber Ale",
-    "description": "Delicious",
-    "category": "Drink",
-    "price": 499
-  },
-  {
-    "id": 21,
-    "name": "Vodka Cranberry",
-    "description": "",
-    "category": "Drink",
-    "price": 699
-  },
-  {
-    "id": 22,
-    "name": "Chicken Sandwich",
-    "description": "Chicken Sandwich with sun dried tomatoes and pesto.",
-    "category": "Entree",
-    "price": 999
-  },
-  {
-    "id": 23,
-    "name": "Pulled Pork Sandwich",
-    "description": "Tender pork on a sourdough roll",
-    "category": "Entree",
-    "price": 999
-  },
-  {
-    "id": 24,
-    "name": "Spicy Reuben Sandwich",
-    "description": "Pastrami on Rye with spicy 1000 island",
-    "category": "Entree",
-    "price": 1099
-  },
-  {
-    "id": 25,
-    "name": "Sesame Catfish",
-    "description": "Catfish with a wild sesame flavor",
-    "category": "Entree",
-    "price": 2199
-  },
-  {
-    "id": 26,
-    "name": "Alaskan Salmon",
-    "description": "Fresh caught wild salmon",
-    "category": "Entree",
-    "price": 2499
-  },
-  {
-    "id": 27,
-    "name": "Wasabi Halibut",
-    "description": "Wasabi crusted halibut",
-    "category": "Entree",
-    "price": 2399
-  },
-  {
-    "id": 28,
-    "name": "Spaghetti and Meatballs",
-    "description": "",
-    "category": "Entree",
-    "price": 1399
-  },
-  {
-    "id": 29,
-    "name": "Nachos",
-    "description": "Fully loaded tortilla chips with nacho cheese",
-    "category": "Appetizer",
-    "price": 999
-  },
-  {
-    "id": 30,
-    "name": "Chocolate Milk",
-    "description": "Rich 2% Chocolate Milk",
-    "category": "Drink",
-    "price": 399
-  },
-  {
-    "id": 31,
-    "name": "Hand-scooped Milk Shake",
-    "description": "",
-    "category": "Drink",
-    "price": 599
-  }
-]
+{
+  "menu_items": [
+    {
+      "id": 1,
+      "name": "BBQ Chicken",
+      "description": "",
+      "category": "Entree",
+      "price": 1299
+    },
+    {
+      "id": 2,
+      "name": "Cheeseburger",
+      "description": "Quarter Pounder",
+      "category": "Entree",
+      "price": 999
+    },
+    {
+      "id": 3,
+      "name": "Filet Mignon",
+      "description": "Filet Mignon Wrapped in Bacon",
+      "category": "Entree",
+      "price": 2299
+    },
+    {
+      "id": 4,
+      "name": "Pasta Alfredo",
+      "description": "Fetuccini with a rich Alfredo Sauce",
+      "category": "Entree",
+      "price": 1599
+    },
+    {
+      "id": 5,
+      "name": "Dr. Pepper",
+      "description": "",
+      "category": "Drink",
+      "price": 250
+    },
+    {
+      "id": 6,
+      "name": "Sprite",
+      "description": "",
+      "category": "Drink",
+      "price": 250
+    },
+    {
+      "id": 7,
+      "name": "Coke",
+      "description": "",
+      "category": "Drink",
+      "price": 250
+    },
+    {
+      "id": 8,
+      "name": "Waldorf Salad",
+      "description": "Super girly salad",
+      "category": "Entree",
+      "price": 1099
+    },
+    {
+      "id": 9,
+      "name": "Barbeque Chicken Salad",
+      "description": "Chopped salad with BBQ Chicken, Ranch, and BBQ Sauce",
+      "category": "Entree",
+      "price": 1299
+    },
+    {
+      "id": 10,
+      "name": "Brownie a la Mode",
+      "description": "Brownie with Vanilla Ice Cream on top",
+      "category": "Dessert",
+      "price": 599
+    },
+    {
+      "id": 11,
+      "name": "Hot Fudge Sundae",
+      "description": "Ice cream with nuts, melted fudge, and a cherry on top",
+      "category": "Dessert",
+      "price": 599
+    },
+    {
+      "id": 12,
+      "name": "Apple Pie",
+      "description": "",
+      "category": "Dessert",
+      "price": 699
+    },
+    {
+      "id": 13,
+      "name": "Tiramisu",
+      "description": "",
+      "category": "Dessert",
+      "price": 699
+    },
+    {
+      "id": 14,
+      "name": "Lemon Bar",
+      "description": "Decadent lemon pastry",
+      "category": "Dessert",
+      "price": 599
+    },
+    {
+      "id": 15,
+      "name": "Potato Skins",
+      "description": "Potato skins with sour cream and bbq sauce",
+      "category": "Appetizer",
+      "price": 799
+    },
+    {
+      "id": 16,
+      "name": "Calamari",
+      "description": "Fried calamari",
+      "category": "Appetizer",
+      "price": 899
+    },
+    {
+      "id": 17,
+      "name": "Beef Sliders",
+      "description": "Mini burgers served whatever way you want",
+      "category": "Appetizer",
+      "price": 799
+    },
+    {
+      "id": 18,
+      "name": "Mozzarella Sticks",
+      "description": "Gooey, deep fried cheese with marinara",
+      "category": "Appetizer",
+      "price": 599
+    },
+    {
+      "id": 19,
+      "name": "Long Island Iced Tea",
+      "description": "It'll get you drunk!",
+      "category": "Drink",
+      "price": 799
+    },
+    {
+      "id": 20,
+      "name": "Fat Tire Amber Ale",
+      "description": "Delicious",
+      "category": "Drink",
+      "price": 499
+    },
+    {
+      "id": 21,
+      "name": "Vodka Cranberry",
+      "description": "",
+      "category": "Drink",
+      "price": 699
+    },
+    {
+      "id": 22,
+      "name": "Chicken Sandwich",
+      "description": "Chicken Sandwich with sun dried tomatoes and pesto.",
+      "category": "Entree",
+      "price": 999
+    },
+    {
+      "id": 23,
+      "name": "Pulled Pork Sandwich",
+      "description": "Tender pork on a sourdough roll",
+      "category": "Entree",
+      "price": 999
+    },
+    {
+      "id": 24,
+      "name": "Spicy Reuben Sandwich",
+      "description": "Pastrami on Rye with spicy 1000 island",
+      "category": "Entree",
+      "price": 1099
+    },
+    {
+      "id": 25,
+      "name": "Sesame Catfish",
+      "description": "Catfish with a wild sesame flavor",
+      "category": "Entree",
+      "price": 2199
+    },
+    {
+      "id": 26,
+      "name": "Alaskan Salmon",
+      "description": "Fresh caught wild salmon",
+      "category": "Entree",
+      "price": 2499
+    },
+    {
+      "id": 27,
+      "name": "Wasabi Halibut",
+      "description": "Wasabi crusted halibut",
+      "category": "Entree",
+      "price": 2399
+    },
+    {
+      "id": 28,
+      "name": "Spaghetti and Meatballs",
+      "description": "",
+      "category": "Entree",
+      "price": 1399
+    },
+    {
+      "id": 29,
+      "name": "Nachos",
+      "description": "Fully loaded tortilla chips with nacho cheese",
+      "category": "Appetizer",
+      "price": 999
+    },
+    {
+      "id": 30,
+      "name": "Chocolate Milk",
+      "description": "Rich 2% Chocolate Milk",
+      "category": "Drink",
+      "price": 399
+    },
+    {
+      "id": 31,
+      "name": "Hand-scooped Milk Shake",
+      "description": "",
+      "category": "Drink",
+      "price": 599
+    },
+    {
+      "id": 32,
+      "name": "Hot Chocolate",
+      "description": "Served with mini marshmallows",
+      "category": "Drink",
+      "price": 399
+    },
+    {
+      "id": 33,
+      "name": "Hash Browns",
+      "description": "Golden brown shredded potatoes",
+      "category": "Sides",
+      "price": 499
+    }
+  ]
+}
