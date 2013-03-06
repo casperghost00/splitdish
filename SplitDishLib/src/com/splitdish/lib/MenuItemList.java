@@ -71,12 +71,13 @@ public class MenuItemList extends ArrayList<MenuItem> implements Parcelable {
 		
 		return categoriesList;
 	}
-	
+	// Gets every item with first letter that matches the provided char
+	// Currently Case-Insensitive
 	public MenuItemList getSubListByFirstLetter(char firstLetter) {
 		MenuItemList letterList = new MenuItemList();
-		
+		char fLetter = Character.toLowerCase(firstLetter);
 		for(MenuItem m : this) {
-			if(m.getName().charAt(0) == firstLetter) {
+			if(Character.toLowerCase(m.getName().charAt(0)) == fLetter) {
 				letterList.add(m);
 			}
 		}
