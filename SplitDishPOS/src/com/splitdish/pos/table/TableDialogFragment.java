@@ -38,6 +38,11 @@ public class TableDialogFragment extends DialogFragment {
 		Fragment noteFrag = new TableNotesFragment();
     	Fragment listFrag = new TableTicketItemsPagerFragment();
     	
+    	Bundle args = new Bundle();
+    	args.putString(FloorSectionFragment.ARG_TABLE_NAME, mTableName);
+    	args.putString(FloorSectionFragment.ARG_SECTION_TITLE, mSectionTitle);
+    	listFrag.setArguments(args);
+    	
 		FragmentTransaction fTrans = getChildFragmentManager().beginTransaction();
 		fTrans.add(R.id.list_fragment_placeholder, listFrag, "list");
 		fTrans.commit();

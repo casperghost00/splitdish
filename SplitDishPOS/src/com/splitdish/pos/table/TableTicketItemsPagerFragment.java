@@ -1,13 +1,7 @@
 package com.splitdish.pos.table;
 
-import java.io.IOException;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.ActionBar.Tab;
 import android.app.ActionBar;
-import android.app.Activity;
+import android.app.ActionBar.Tab;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,26 +11,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.splitdish.lib.TicketItemList;
-import com.splitdish.lib.Utilities;
+import com.splitdish.lib.MenuItemList;
 import com.splitdish.pos.R;
+import com.splitdish.pos.floor.FloorSectionFragment;
 
 public class TableTicketItemsPagerFragment extends Fragment implements ActionBar.TabListener {
 
 	public static final String ARG_COURSE_NUMBER = "com.splitdish.pos.COURSE_NUMBER";
 
-    TicketItemsPagerAdapter mSectionsPagerAdapter;
+    MenuItemsPagerAdapter mSectionsPagerAdapter;
 
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
-    ViewPager mViewPager;
-    Activity mParentActivity;
+    private ViewPager mViewPager;
+    private String mTableName;
+    private String mSectionTitle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
+		Bundle args = new Bundle();
+		args = getArguments();
+		
+		mTableName = args.getString(FloorSectionFragment.ARG_TABLE_NAME);
+		mSectionTitle = args.getString(FloorSectionFragment.ARG_SECTION_TITLE);
 
     }
     
@@ -44,7 +41,7 @@ public class TableTicketItemsPagerFragment extends Fragment implements ActionBar
     		Bundle savedInstanceState) {
     	View fragmentView = inflater.inflate(R.layout.table_ticket_items_pager, container, false);
 
-        mSectionsPagerAdapter = new TicketItemsPagerAdapter(getChildFragmentManager());
+        mSectionsPagerAdapter = new MenuItemsPagerAdapter(getChildFragmentManager());
 
 
         // Set up the ViewPager with the sections adapter.
@@ -69,39 +66,23 @@ public class TableTicketItemsPagerFragment extends Fragment implements ActionBar
     	
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
-     * sections of the app.
-     */
-    public class TicketItemsPagerAdapter extends FragmentPagerAdapter {
+    public class MenuItemsPagerAdapter extends FragmentPagerAdapter {
 
-		String[] areaTitles;
-	    String jsonTicketItems;
-	    Activity mParentActivity;
-	    TicketItemList mItemList;
+	    MenuItemList mItemList;
         
-        public TicketItemsPagerAdapter(FragmentManager fm) {
+        public MenuItemsPagerAdapter(FragmentManager fm) {
             super(fm);
             
-            try {
-            	jsonTicketItems = Utilities.getTextFromRawResource(getActivity(), R.raw.sample_ticket);
-            }
-            catch(IOException e) {
-            	e.getStackTrace();
-            }
-            
-            try {
-            	mItemList = new TicketItemList(new JSONObject(jsonTicketItems));
-            }
-            catch(JSONException e) {
-            	e.getStackTrace();
-            }
+            TableManager manager = TableManager.getTableManager();
+            mItemList = manager.getTable(mTableName,mSectionTitle).getTicket();
         }
 
         @Override
         public Fragment getItem(int i) {
             Fragment fragment = new TableTicketItemsFragment();
             Bundle args = new Bundle();
+        	args.putString(FloorSectionFragment.ARG_TABLE_NAME, mTableName);
+        	args.putString(FloorSectionFragment.ARG_SECTION_TITLE, mSectionTitle);
             args.putString(TableTicketItemsPagerFragment.ARG_COURSE_NUMBER, Integer.toString(i));
             fragment.setArguments(args);
             return fragment;
@@ -109,7 +90,7 @@ public class TableTicketItemsPagerFragment extends Fragment implements ActionBar
 
         @Override
         public int getCount() {
-            return mItemList.numCourses();
+            return mItemList.getNumCourses();
         }
 
         @Override
