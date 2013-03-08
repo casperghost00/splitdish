@@ -87,6 +87,14 @@ public class Table {
 		return mTableCoords;
 	}
 	
+	public int getNumCourses() {
+		return mTableOrderList.getNumCourses();
+	}
+	
+	public void incremenetCourses() {
+		mTableOrderList.incrementCourses();
+	}
+	
 	public ImageView getView(Context context) {
 		ImageView tableView = new ImageView(context);
 

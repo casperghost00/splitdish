@@ -36,7 +36,7 @@ public class TableDialogFragment extends DialogFragment {
 		mFragmentView = inflater.inflate(R.layout.table_dialog_fragment, container, false);		
 		
 		Fragment noteFrag = new TableNotesFragment();
-    	Fragment listFrag = new TableTicketItemsPagerFragment();
+    	Fragment listFrag = new TableTicketPagerFragment();
     	
     	Bundle args = new Bundle();
     	args.putString(FloorSectionFragment.ARG_TABLE_NAME, mTableName);
@@ -52,6 +52,7 @@ public class TableDialogFragment extends DialogFragment {
 		fTrans.commit();
 		
 		mFragmentView.findViewById(R.id.add_item_button).setOnClickListener(menuOnClickListener);
+		mFragmentView.findViewById(R.id.add_course_button).setOnClickListener(courseOnClickListener);
 		
 		return mFragmentView;
 	}
@@ -70,6 +71,12 @@ public class TableDialogFragment extends DialogFragment {
         	intent.putExtra(FloorSectionFragment.ARG_SECTION_TITLE, mSectionTitle);
         	
         	startActivity(intent);
+        }
+    }; 
+    private OnClickListener courseOnClickListener = new OnClickListener() {
+        public void onClick(View v) {
+        	((TableTicketPagerFragment)getChildFragmentManager()
+        			.findFragmentByTag("list")).onCourseAddedClick();
         }
     }; 
 }

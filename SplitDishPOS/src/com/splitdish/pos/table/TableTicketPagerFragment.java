@@ -5,8 +5,9 @@ import android.app.ActionBar.Tab;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import com.splitdish.lib.MenuItemList;
 import com.splitdish.pos.R;
 import com.splitdish.pos.floor.FloorSectionFragment;
 
-public class TableTicketItemsPagerFragment extends Fragment implements ActionBar.TabListener {
+public class TableTicketPagerFragment extends Fragment implements ActionBar.TabListener {
 
 	public static final String ARG_COURSE_NUMBER = "com.splitdish.pos.COURSE_NUMBER";
 
@@ -63,27 +64,31 @@ public class TableTicketItemsPagerFragment extends Fragment implements ActionBar
     @Override
     public void onResume() {
     	super.onResume();
-    	
     }
 
-    public class MenuItemsPagerAdapter extends FragmentPagerAdapter {
+    public class MenuItemsPagerAdapter extends FragmentStatePagerAdapter {
 
-	    MenuItemList mItemList;
+    	private TableManager mManager = null;
+        private MenuItemList mItemList;
         
         public MenuItemsPagerAdapter(FragmentManager fm) {
             super(fm);
             
-            TableManager manager = TableManager.getTableManager();
-            mItemList = manager.getTable(mTableName,mSectionTitle).getTicket();
+            mManager = TableManager.getTableManager();
+            mItemList = mManager.getTable(mTableName,mSectionTitle).getTicket();
         }
 
         @Override
         public Fragment getItem(int i) {
             Fragment fragment = new TableTicketItemsFragment();
+
+            //Make sure the most recent MenuItemList is used for reference
+            mItemList = mManager.getTable(mTableName,mSectionTitle).getTicket();
+            
             Bundle args = new Bundle();
         	args.putString(FloorSectionFragment.ARG_TABLE_NAME, mTableName);
         	args.putString(FloorSectionFragment.ARG_SECTION_TITLE, mSectionTitle);
-            args.putString(TableTicketItemsPagerFragment.ARG_COURSE_NUMBER, Integer.toString(i));
+            args.putString(TableTicketPagerFragment.ARG_COURSE_NUMBER, Integer.toString(i));
             fragment.setArguments(args);
             return fragment;
         }
@@ -97,6 +102,16 @@ public class TableTicketItemsPagerFragment extends Fragment implements ActionBar
         public CharSequence getPageTitle(int position) {
         	return "Course "+Integer.toString(position+1);
         }
+        
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
+    }
+    
+    public void onCourseAddedClick() {
+    	TableManager.getTableManager().getTable(mTableName,mSectionTitle).incremenetCourses();
+    	mSectionsPagerAdapter.notifyDataSetChanged();
     }
 
 	public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {

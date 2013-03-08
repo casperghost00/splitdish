@@ -34,7 +34,7 @@ public class TableTicketItemsFragment extends Fragment {
 	    mTableName = args.getString(FloorSectionFragment.ARG_TABLE_NAME);
 	    mSectionTitle = args.getString(FloorSectionFragment.ARG_SECTION_TITLE);
 	    
-	    mCourseNum = args.getString(TableTicketItemsPagerFragment.ARG_COURSE_NUMBER);    
+	    mCourseNum = args.getString(TableTicketPagerFragment.ARG_COURSE_NUMBER);    
 	}
 	
 	@Override
