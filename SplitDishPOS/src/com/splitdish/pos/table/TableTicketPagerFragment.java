@@ -64,6 +64,8 @@ public class TableTicketPagerFragment extends Fragment implements ActionBar.TabL
     @Override
     public void onResume() {
     	super.onResume();
+    	int currentCourse = mViewPager.getCurrentItem();
+    	((OnCourseSelectedListener)getParentFragment()).onCourseSelected(currentCourse);
     }
 
     public class MenuItemsPagerAdapter extends FragmentStatePagerAdapter {
