@@ -54,6 +54,15 @@ public class MenuItemList extends ArrayList<MenuItem> implements Parcelable {
 		return categoryList;
 	}
 	
+	public MenuItem getItemById(int id) {
+		for(MenuItem m : this) {
+			if(m.getId() == id) {
+				return m;
+			}
+		}
+		return null;
+	}
+	
 	// Returns how many unique courses a list possesses
 	public int getCategoriesCount() {
 		return numMenuCategories;

@@ -8,6 +8,7 @@ import android.os.Parcelable;
 
 public class MenuItem implements Parcelable{
 	
+	int id;
 	String name;
 	String description;
 	String category;
@@ -16,13 +17,15 @@ public class MenuItem implements Parcelable{
 	int course = 0; //what course number does the item belong to
 	
 	public MenuItem(JSONObject jsonItem) throws JSONException {
+		id = jsonItem.getInt("id");
 		name = jsonItem.getString("name");
 		description = jsonItem.getString("description");
 		category = jsonItem.getString("category");
 		price = jsonItem.getInt("price");		
 	}
 	
-	public MenuItem(String name, String desc, String category, int price) {
+	public MenuItem(int id, String name, String desc, String category, int price) {
+		this.id = id;
 		this.name = name;
 		this.description = desc;
 		this.category = category;
@@ -30,10 +33,12 @@ public class MenuItem implements Parcelable{
 	}
 	
 	public MenuItem(Parcel in) {
+		id = in.readInt();
 		name = in.readString();
 		description = in.readString();
 		category = in.readString();
 		price = in.readInt();
+		course = in.readInt();
 		selected = in.readByte() == 1;
 	}
 
@@ -44,10 +49,12 @@ public class MenuItem implements Parcelable{
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(id);
 		dest.writeString(name);
 		dest.writeString(description);
 		dest.writeString(category);
 		dest.writeInt(price);
+		dest.writeInt(course);
 		dest.writeByte((byte)(selected ? 1:0));
 	}
 	
@@ -65,6 +72,9 @@ public class MenuItem implements Parcelable{
             return new TicketItem[size];
         }
     };
+    public int getId() {
+    	return id;
+    }
     
     public String getName() {
     	return name;
@@ -94,4 +104,10 @@ public class MenuItem implements Parcelable{
 		course = courseNum;
 	}
 	
+	public boolean equals(MenuItem item) {
+		if(item.id == this.id) {
+			return true;
+		}
+		return false;
+	}
 }
