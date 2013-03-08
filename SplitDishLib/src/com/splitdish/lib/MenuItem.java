@@ -12,6 +12,7 @@ public class MenuItem implements Parcelable{
 	String name;
 	String description;
 	String category;
+	String note = "";
 	int price; //price in cents
 	Boolean selected = false;
 	int course = 0; //what course number does the item belong to
@@ -102,6 +103,10 @@ public class MenuItem implements Parcelable{
 	
 	public void setCourse(int courseNum) {
 		course = courseNum;
+	}
+	
+	public String getNote() {
+		return note;
 	}
 	
 	public boolean equals(MenuItem item) {

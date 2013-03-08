@@ -93,6 +93,19 @@ public class MenuItemList extends ArrayList<MenuItem> implements Parcelable {
 		return letterList;
 	}
 	
+	public MenuItemList getCourseList(int courseNum) {
+		MenuItemList courseList = new MenuItemList();
+		
+		MenuItem item = null;
+		for(int i=0;i<size();i++) {
+			item = get(i);
+			if(item.getCourse()==courseNum) {
+				courseList.add(item);
+			}
+		}
+		return courseList;
+	}
+	
 	//Parcelable Interface Methods
 	public MenuItemList(Parcel in) {
 		int size = in.readInt();
