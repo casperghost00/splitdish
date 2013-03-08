@@ -1,6 +1,7 @@
 package com.splitdish.pos.floor;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,7 +9,6 @@ import org.json.JSONObject;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -18,10 +18,7 @@ import android.view.Menu;
 
 import com.splitdish.lib.Utilities;
 import com.splitdish.pos.R;
-import com.splitdish.pos.R.id;
-import com.splitdish.pos.R.layout;
-import com.splitdish.pos.R.menu;
-import com.splitdish.pos.R.raw;
+import com.splitdish.pos.table.TableManager;
 
 public class FloorPagerActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -37,22 +34,30 @@ public class FloorPagerActivity extends FragmentActivity implements ActionBar.Ta
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
-    static String jsonFloorLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.floor_main_pager);
-        // Create the adapter that will return a fragment for each of the three primary sections
-        // of the app.
 
+        
+        // Initialize the TableManager with the data read from floor_layout.json raw res
+        JSONObject jFloorLayout = null;
         try {
-        	jsonFloorLayout = Utilities.getTextFromRawResource(this, R.raw.floor_layout);
+        	String jsonFloorLayout = Utilities.getTextFromRawResource(this, R.raw.floor_layout);
+        	jFloorLayout = new JSONObject(jsonFloorLayout);
+            TableManager.getTableManager().setFloorLayout(jFloorLayout);
         }
         catch(IOException e) {
         	e.getStackTrace();
         }
+        catch(JSONException e) {
+        	e.getStackTrace();
+        }
         
+
+        // Create the adapter that will return a fragment for each of the three primary sections
+        // of the app.
         mSectionsPagerAdapter = new FloorSectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the action bar.
@@ -118,44 +123,31 @@ public class FloorPagerActivity extends FragmentActivity implements ActionBar.Ta
      */
     public class FloorSectionsPagerAdapter extends FragmentPagerAdapter {
 
-        String[] areaTitles;
+        ArrayList<String> sectionTitles;
         
         public FloorSectionsPagerAdapter(FragmentManager fm) {
             super(fm);
             
-            JSONObject jFloorLayout;
-            FloorMap fMap = null;
-            
-            try {
-            	jFloorLayout = new JSONObject(jsonFloorLayout);
-                fMap = new FloorMap(jFloorLayout);
-            }
-            catch(JSONException e)
-            {
-            	e.printStackTrace();
-            }
-            
-            areaTitles = fMap.getAreaTitles();
+            sectionTitles = TableManager.getTableManager().getSectionTitles();
         }
 
         @Override
         public Fragment getItem(int i) {
             Fragment fragment = new FloorSectionFragment();
             Bundle args = new Bundle();
-            args.putString(FloorSectionFragment.ARG_AREA_TITLE, areaTitles[i]);
-            args.putString(FloorSectionFragment.ARG_JSON_FLOOR_LAYOUT, jsonFloorLayout);
+            args.putString(FloorSectionFragment.ARG_SECTION_TITLE, sectionTitles.get(i));
             fragment.setArguments(args);
             return fragment;
         }
 
         @Override
         public int getCount() {
-            return areaTitles.length;
+            return sectionTitles.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return areaTitles[position];
+            return sectionTitles.get(position);
         }
     }
 }

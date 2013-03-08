@@ -1,23 +1,10 @@
 package com.splitdish.pos.floor;
 
-import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.splitdish.pos.R;
-import com.splitdish.pos.R.drawable;
-
-import android.content.Context;
-import android.view.Gravity;
-import android.widget.GridLayout;
-import android.widget.ImageView;
 
 
 
 public class FloorMap {
-
+/*
 	private static final int X_COORD = 0;
 	private static final int Y_COORD = 1;
 	private enum ZoomLevel {close, standard, far}; 
@@ -143,5 +130,5 @@ public class FloorMap {
 			}
 		}
 		return area;
-	}
+	}*/
 }

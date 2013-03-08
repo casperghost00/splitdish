@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.splitdish.pos.R;
 import com.splitdish.pos.menu.MenuMainPageFragment.OnLetterSelectedListener;
-import com.splitdish.pos.table.TableTicketItemsPagerFragment;
 
 public class MenuPageContainerFragment extends Fragment implements OnLetterSelectedListener {
 
