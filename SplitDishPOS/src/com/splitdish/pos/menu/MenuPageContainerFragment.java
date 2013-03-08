@@ -11,12 +11,12 @@ import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 
 import com.splitdish.pos.R;
+import com.splitdish.pos.TableManager;
 import com.splitdish.pos.floor.FloorSectionFragment;
 import com.splitdish.pos.menu.MenuItemPageFragment.OnMenuItemSelectedListener;
 import com.splitdish.pos.menu.MenuLetterPageFragment.OnLetterSelectedListener;
 import com.splitdish.pos.table.Table;
 import com.splitdish.pos.table.TableDialogFragment;
-import com.splitdish.pos.table.TableManager;
 
 public class MenuPageContainerFragment extends Fragment 
 	implements OnLetterSelectedListener, OnMenuItemSelectedListener {

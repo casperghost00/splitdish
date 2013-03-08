@@ -16,9 +16,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.splitdish.pos.R;
+import com.splitdish.pos.TableManager;
 import com.splitdish.pos.table.Table;
 import com.splitdish.pos.table.TableDialogFragment;
-import com.splitdish.pos.table.TableManager;
 
 public class FloorSectionFragment extends Fragment {
 	

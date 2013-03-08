@@ -1,4 +1,4 @@
-package com.splitdish.pos.table;
+package com.splitdish.pos;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -6,6 +6,8 @@ import java.util.HashSet;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.splitdish.pos.table.Table;
 
 public class TableManager {
 

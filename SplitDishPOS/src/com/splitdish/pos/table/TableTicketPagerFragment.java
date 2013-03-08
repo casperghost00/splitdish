@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.splitdish.lib.MenuItemList;
 import com.splitdish.pos.R;
+import com.splitdish.pos.TableManager;
 import com.splitdish.pos.floor.FloorSectionFragment;
 
 public class TableTicketPagerFragment extends Fragment implements ActionBar.TabListener {

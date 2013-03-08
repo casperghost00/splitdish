@@ -18,7 +18,7 @@ import android.view.Menu;
 
 import com.splitdish.lib.Utilities;
 import com.splitdish.pos.R;
-import com.splitdish.pos.table.TableManager;
+import com.splitdish.pos.TableManager;
 
 public class FloorPagerActivity extends FragmentActivity implements ActionBar.TabListener {
 
