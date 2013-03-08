@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +54,7 @@ public class TableTicketPagerFragment extends Fragment implements ActionBar.TabL
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+            	((OnCourseSelectedListener)getParentFragment()).onCourseSelected(position);
             }
         });
     	
@@ -127,5 +127,9 @@ public class TableTicketPagerFragment extends Fragment implements ActionBar.TabL
 	public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public interface OnCourseSelectedListener {
+		public void onCourseSelected(int courseNum);
 	}
 }

@@ -15,6 +15,7 @@ import com.splitdish.pos.floor.FloorSectionFragment;
 import com.splitdish.pos.menu.MenuItemPageFragment.OnMenuItemSelectedListener;
 import com.splitdish.pos.menu.MenuLetterPageFragment.OnLetterSelectedListener;
 import com.splitdish.pos.table.Table;
+import com.splitdish.pos.table.TableDialogFragment;
 import com.splitdish.pos.table.TableManager;
 
 public class MenuPageContainerFragment extends Fragment 
@@ -27,7 +28,8 @@ public class MenuPageContainerFragment extends Fragment
 	private TableManager mTableManager = null;
     private String mAssociatedTableName = null;
     private String mAssociatedSectionTitle = null;
-	
+    private int mAssociatedCourseNum;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class MenuPageContainerFragment extends Fragment
 		mCategory = args.getString(ARGS_CATEGORY_TITLE);
 		mAssociatedTableName = args.getString(FloorSectionFragment.ARG_TABLE_NAME);
 		mAssociatedSectionTitle = args.getString(FloorSectionFragment.ARG_SECTION_TITLE);
+		mAssociatedCourseNum = args.getInt(TableDialogFragment.ARG_CURRENT_COURSE);
         mFragment = this;
 	}
 	
@@ -97,7 +100,7 @@ public class MenuPageContainerFragment extends Fragment
 
 	public void onMenuItemSelected(int itemId) {
 		Table table = mTableManager.getTable(mAssociatedTableName, mAssociatedSectionTitle);
-		table.addToTicket(itemId);
+		table.addToTicket(itemId, mAssociatedCourseNum);
 		getActivity().finish();
 	}
 }

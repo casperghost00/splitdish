@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,12 +14,17 @@ import android.view.ViewGroup;
 import com.splitdish.pos.R;
 import com.splitdish.pos.floor.FloorSectionFragment;
 import com.splitdish.pos.menu.MenuPagerActivity;
+import com.splitdish.pos.table.TableTicketPagerFragment.OnCourseSelectedListener;
 
-public class TableDialogFragment extends DialogFragment {
+public class TableDialogFragment extends DialogFragment 
+		implements OnCourseSelectedListener {
+	
+	public static final String ARG_CURRENT_COURSE = "com.splitdish.pos.table.ARG_CURRENT_COURSE";
 	
 	private View mFragmentView;
 	private String mTableName;
 	private String mSectionTitle;
+	private int mCurrentCourse = 1;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,7 @@ public class TableDialogFragment extends DialogFragment {
 
         	intent.putExtra(FloorSectionFragment.ARG_TABLE_NAME, mTableName);
         	intent.putExtra(FloorSectionFragment.ARG_SECTION_TITLE, mSectionTitle);
+        	intent.putExtra(ARG_CURRENT_COURSE, mCurrentCourse);
         	
         	startActivity(intent);
         }
@@ -79,4 +86,9 @@ public class TableDialogFragment extends DialogFragment {
         			.findFragmentByTag("list")).onCourseAddedClick();
         }
     }; 
+    
+    public void onCourseSelected(int courseNum) {
+    	mCurrentCourse = courseNum;
+    	Log.d("CurrentCourse", Integer.toString(mCurrentCourse));
+    }
 }

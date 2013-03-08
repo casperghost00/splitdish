@@ -50,6 +50,12 @@ public class Table {
 		mTableOrderList.add(GlobalMenu.getGlobalMenu().getItemById(itemId));
 	}
 	
+	public void addToTicket(int itemId, int courseNum) {
+		MenuItem item = GlobalMenu.getGlobalMenu().getItemById(itemId);
+		item.setCourse(courseNum);
+		mTableOrderList.add(item);
+	}
+	
 	public void addToTicket(MenuItem item) {
 		mTableOrderList.add(item);
 	}

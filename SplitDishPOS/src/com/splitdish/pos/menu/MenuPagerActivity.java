@@ -18,6 +18,7 @@ import com.splitdish.lib.MenuItemList;
 import com.splitdish.pos.R;
 import com.splitdish.pos.floor.FloorSectionFragment;
 import com.splitdish.pos.menu.MenuLetterPageFragment.OnLetterSelectedListener;
+import com.splitdish.pos.table.TableDialogFragment;
 
 public class MenuPagerActivity extends FragmentActivity 
 			implements ActionBar.TabListener, OnLetterSelectedListener {
@@ -29,6 +30,7 @@ public class MenuPagerActivity extends FragmentActivity
     private ArrayList<String> mCategories = null;
     private String mAssociatedTableName = null;
     private String mAssociatedSectionTitle = null;
+    private int mAssociatedCourseNum;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class MenuPagerActivity extends FragmentActivity
 		
 		mAssociatedTableName = intent.getStringExtra(FloorSectionFragment.ARG_TABLE_NAME);
 		mAssociatedSectionTitle = intent.getStringExtra(FloorSectionFragment.ARG_SECTION_TITLE);
+		mAssociatedCourseNum = intent.getIntExtra(TableDialogFragment.ARG_CURRENT_COURSE,0);
 		
 		mMenuItemList = GlobalMenu.getGlobalMenu();
 		mFragmentManager = getSupportFragmentManager();
@@ -102,6 +105,7 @@ public class MenuPagerActivity extends FragmentActivity
             args.putString(MenuPageContainerFragment.ARGS_CATEGORY_TITLE, menuCategories.get(i));
             args.putString(FloorSectionFragment.ARG_SECTION_TITLE, mAssociatedSectionTitle);
             args.putString(FloorSectionFragment.ARG_TABLE_NAME, mAssociatedTableName);
+            args.putInt(TableDialogFragment.ARG_CURRENT_COURSE, mAssociatedCourseNum);
             fragment.setArguments(args);
             
             return fragment;
