@@ -5,7 +5,6 @@ import java.util.TreeSet;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,11 +15,10 @@ import android.widget.ImageView;
 import com.splitdish.lib.MenuItem;
 import com.splitdish.lib.MenuItemList;
 import com.splitdish.pos.R;
-import com.splitdish.pos.table.TableTicketItemsPagerFragment;
 
-public class MenuMainPageFragment extends Fragment {
+public class MenuLetterPageFragment extends Fragment {
 	
-	public static final String ARGS_CATEGORY_TITLE = "com.splitdish.pos.menu.ARGS_CATEGORY_TITLE";
+	public static final String ARGS_FIRST_LETTER = "com.splitdish.pos.menu.ARGS_FIRST_LETTER";
 	
 	private MenuItemList mMenuItemList = null;
 	private String mCategory = null;
@@ -32,7 +30,7 @@ public class MenuMainPageFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		
 		Bundle args = getArguments();
-		mCategory = args.getString(ARGS_CATEGORY_TITLE);
+		mCategory = args.getString(MenuPageContainerFragment.ARGS_CATEGORY_TITLE);
         
 	}
 	
@@ -86,7 +84,6 @@ public class MenuMainPageFragment extends Fragment {
 			// Communicate what letter has been pressed back to parent Activity
 			letterView.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
-					//mListener.onLetterSelected(clickedChar);
 					((OnLetterSelectedListener)getParentFragment()).onLetterSelected(clickedChar);
 				}
 			});
@@ -127,16 +124,6 @@ public class MenuMainPageFragment extends Fragment {
 		case 'z': return R.drawable.letter_z;
 		}		
 		return 0;
-	}
-	
-	public void onLetterSelected(char selectedChar) {
-		
-		
-    	Fragment listFrag = new TableTicketItemsPagerFragment();
-    	
-		FragmentTransaction fTrans = getChildFragmentManager().beginTransaction();
-		fTrans.add(R.id.menu_main_layout, listFrag, "list");
-		fTrans.commit();
 	}
 	
 	// Container Activity must implement this interface

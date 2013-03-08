@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -15,21 +16,29 @@ import android.view.Menu;
 
 import com.splitdish.lib.MenuItemList;
 import com.splitdish.pos.R;
-import com.splitdish.pos.menu.MenuMainPageFragment.OnLetterSelectedListener;
+import com.splitdish.pos.floor.FloorSectionFragment;
+import com.splitdish.pos.menu.MenuLetterPageFragment.OnLetterSelectedListener;
 
 public class MenuPagerActivity extends FragmentActivity 
 			implements ActionBar.TabListener, OnLetterSelectedListener {
-   
+	
 	private MenuSectionsPagerAdapter mMenuPagerAdapter;
     private ViewPager mViewPager;
     private MenuItemList mMenuItemList = null;
     private FragmentManager mFragmentManager = null;
     private ArrayList<String> mCategories = null;
+    private String mAssociatedTableName = null;
+    private String mAssociatedSectionTitle = null;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.menu_main_pager);
+		
+		Intent intent = getIntent();
+		
+		mAssociatedTableName = intent.getStringExtra(FloorSectionFragment.ARG_TABLE_NAME);
+		mAssociatedSectionTitle = intent.getStringExtra(FloorSectionFragment.ARG_SECTION_TITLE);
 		
 		mMenuItemList = GlobalMenu.getGlobalMenu();
 		mFragmentManager = getSupportFragmentManager();
@@ -90,7 +99,9 @@ public class MenuPagerActivity extends FragmentActivity
         public Fragment getItem(int i) {
             Fragment fragment = new MenuPageContainerFragment();
             Bundle args = new Bundle();
-            args.putString(MenuMainPageFragment.ARGS_CATEGORY_TITLE, menuCategories.get(i));
+            args.putString(MenuPageContainerFragment.ARGS_CATEGORY_TITLE, menuCategories.get(i));
+            args.putString(FloorSectionFragment.ARG_SECTION_TITLE, mAssociatedSectionTitle);
+            args.putString(FloorSectionFragment.ARG_TABLE_NAME, mAssociatedTableName);
             fragment.setArguments(args);
             
             return fragment;

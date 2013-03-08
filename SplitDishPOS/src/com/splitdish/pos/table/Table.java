@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.splitdish.lib.MenuItem;
 import com.splitdish.lib.MenuItemList;
 import com.splitdish.pos.R;
+import com.splitdish.pos.menu.GlobalMenu;
 
 public class Table {
 
@@ -45,8 +46,16 @@ public class Table {
 		mTableOrderList = new MenuItemList();
 	}
 	
+	public void addToTicket(int itemId) {
+		mTableOrderList.add(GlobalMenu.getGlobalMenu().getItemById(itemId));
+	}
+	
 	public void addToTicket(MenuItem item) {
 		mTableOrderList.add(item);
+	}
+	
+	public MenuItemList getTicket() {
+		return (MenuItemList)mTableOrderList.clone();
 	}
 	
 	public void removeFromTicket(MenuItem item) {
@@ -89,9 +98,9 @@ public class Table {
         return tableView;
 	}
 	
-	public boolean equals(Table table) {
-		if(	(this.getName().compareTo(table.getName())==0) &&
-			(this.getSection().compareTo(table.getSection())==0)) {
+	public boolean equals(Object table) {
+		if(	(this.getName().compareTo(((Table)table).getName())==0) &&
+			(this.getSection().compareTo(((Table)table).getSection())==0) ) {
 			return true;
 		}
 		return false;

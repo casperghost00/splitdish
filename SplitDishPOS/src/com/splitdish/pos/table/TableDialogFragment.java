@@ -18,6 +18,7 @@ public class TableDialogFragment extends DialogFragment {
 	
 	private View mFragmentView;
 	private String mTableName;
+	private String mSectionTitle;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class TableDialogFragment extends DialogFragment {
 		args = getArguments();
 		
 		mTableName = args.getString(FloorSectionFragment.ARG_TABLE_NAME);
-		
+		mSectionTitle = args.getString(FloorSectionFragment.ARG_SECTION_TITLE);
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
@@ -59,6 +60,10 @@ public class TableDialogFragment extends DialogFragment {
 	private OnClickListener menuOnClickListener = new OnClickListener() {
         public void onClick(View v) {
         	Intent intent = new Intent(getActivity(), MenuPagerActivity.class);
+
+        	intent.putExtra(FloorSectionFragment.ARG_TABLE_NAME, mTableName);
+        	intent.putExtra(FloorSectionFragment.ARG_SECTION_TITLE, mSectionTitle);
+        	
         	startActivity(intent);
         }
     }; 

@@ -27,7 +27,7 @@ public class FloorSectionFragment extends Fragment {
     public static final String ARG_JSON_FLOOR_LAYOUT = "com.splitdish.pos.json_floor_layout";
     public static final String ARG_TABLE_NAME = "com.splitdish.pos.table_name";
     
-    private String mSectionName = null;
+    private String mSectionTitle = null;
     private TableManager mTableManager = null;
 	
 	private FloorMap fMap = null;
@@ -39,7 +39,7 @@ public class FloorSectionFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		
 		Bundle args = getArguments();
-		mSectionName = args.getString(ARG_SECTION_TITLE);
+		mSectionTitle = args.getString(ARG_SECTION_TITLE);
         
         mTableManager = TableManager.getTableManager();
 	}
@@ -52,7 +52,7 @@ public class FloorSectionFragment extends Fragment {
     	
     	relLayout.setBackgroundColor(getResources().getColor(R.color.transparent));
     	
-        RelativeLayout floorGrid = getAreaLayout(getActivity(), mSectionName, fMap);
+        RelativeLayout floorGrid = getAreaLayout(getActivity(), mSectionTitle, fMap);
 
        
     	relLayout.addView(floorGrid);
@@ -94,7 +94,6 @@ public class FloorSectionFragment extends Fragment {
 
  			tableView = table.getView(context);
  			final String tableName = table.getName();
- 			final String tableSection = table.getSection();
  			
  			
  			//Set the size of the table ImageView
@@ -125,7 +124,7 @@ public class FloorSectionFragment extends Fragment {
  			tableView.setOnClickListener(new View.OnClickListener() {
 
 				public void onClick(View v) {
-					tableSelected(v,tableName, tableSection);
+					tableSelected(v,tableName, mSectionTitle);
 				}
  			});
  		}		

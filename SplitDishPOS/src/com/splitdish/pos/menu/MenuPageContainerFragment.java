@@ -11,22 +11,33 @@ import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 
 import com.splitdish.pos.R;
-import com.splitdish.pos.menu.MenuMainPageFragment.OnLetterSelectedListener;
+import com.splitdish.pos.floor.FloorSectionFragment;
+import com.splitdish.pos.menu.MenuItemPageFragment.OnMenuItemSelectedListener;
+import com.splitdish.pos.menu.MenuLetterPageFragment.OnLetterSelectedListener;
+import com.splitdish.pos.table.Table;
+import com.splitdish.pos.table.TableManager;
 
-public class MenuPageContainerFragment extends Fragment implements OnLetterSelectedListener {
+public class MenuPageContainerFragment extends Fragment 
+	implements OnLetterSelectedListener, OnMenuItemSelectedListener {
 
-public static final String ARGS_CATEGORY_TITLE = "com.splitdish.pos.menu.ARGS_CATEGORY_TITLE";
+	public static final String ARGS_CATEGORY_TITLE = "com.splitdish.pos.menu.ARGS_CATEGORY_TITLE";
 	
 	private String mCategory = null;
 	private Fragment mFragment = null;
-	OnLetterSelectedListener mListener;
+	private TableManager mTableManager = null;
+    private String mAssociatedTableName = null;
+    private String mAssociatedSectionTitle = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		mTableManager = TableManager.getTableManager();
+		
 		Bundle args = getArguments();
 		mCategory = args.getString(ARGS_CATEGORY_TITLE);
+		mAssociatedTableName = args.getString(FloorSectionFragment.ARG_TABLE_NAME);
+		mAssociatedSectionTitle = args.getString(FloorSectionFragment.ARG_SECTION_TITLE);
         mFragment = this;
 	}
 	
@@ -54,7 +65,7 @@ public static final String ARGS_CATEGORY_TITLE = "com.splitdish.pos.menu.ARGS_CA
     	
     	manager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     	
-    	Fragment mainPageFrag = new MenuMainPageFragment();
+    	Fragment mainPageFrag = new MenuLetterPageFragment();
     	
     	Bundle args = new Bundle();
     	args.putString(ARGS_CATEGORY_TITLE, mCategory);
@@ -70,11 +81,11 @@ public static final String ARGS_CATEGORY_TITLE = "com.splitdish.pos.menu.ARGS_CA
 
 	public void onLetterSelected(char selectedChar) {
 		FragmentTransaction fTrans = getChildFragmentManager().beginTransaction();
-		Fragment subMenuFrag = new MenuSubPageFragment();
+		Fragment subMenuFrag = new MenuItemPageFragment();
 		
 		Bundle args = new Bundle();
-		args.putString(MenuSubPageFragment.ARGS_CATEGORY_TITLE, mCategory);
-		args.putChar(MenuSubPageFragment.ARGS_FIRST_LETTER, selectedChar);
+		args.putString(ARGS_CATEGORY_TITLE, mCategory);
+		args.putChar(MenuLetterPageFragment.ARGS_FIRST_LETTER, selectedChar);
 		
 		subMenuFrag.setArguments(args);
     	
@@ -82,5 +93,11 @@ public static final String ARGS_CATEGORY_TITLE = "com.splitdish.pos.menu.ARGS_CA
 		fTrans.addToBackStack(null);
 		fTrans.commit();
 		
+	}
+
+	public void onMenuItemSelected(int itemId) {
+		Table table = mTableManager.getTable(mAssociatedTableName, mAssociatedSectionTitle);
+		table.addToTicket(itemId);
+		getActivity().finish();
 	}
 }
