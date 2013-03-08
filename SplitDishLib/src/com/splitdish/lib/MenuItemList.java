@@ -13,8 +13,9 @@ import android.os.Parcelable;
 public class MenuItemList extends ArrayList<MenuItem> implements Parcelable {
 
 	private static final long serialVersionUID = -4182332833418859270L;
-	private int numMenuCategories = 0;
-	private ArrayList<String> categoriesList = null;
+	private int mNumMenuCategories = 0;
+	private ArrayList<String> mCategoriesList = null;
+	private int mNumCourses = 1;
 	
 	public MenuItemList() {
 		super();
@@ -36,7 +37,7 @@ public class MenuItemList extends ArrayList<MenuItem> implements Parcelable {
 			noDupList.add(item.getCategory());
 			add(item);
 		}
-		numMenuCategories = noDupList.size();
+		mNumMenuCategories = noDupList.size();
 		
 	}
 	
@@ -65,7 +66,7 @@ public class MenuItemList extends ArrayList<MenuItem> implements Parcelable {
 	
 	// Returns how many unique courses a list possesses
 	public int getCategoriesCount() {
-		return numMenuCategories;
+		return mNumMenuCategories;
 	}
 	
 	public ArrayList<String> getCategoriesList() {
@@ -75,10 +76,10 @@ public class MenuItemList extends ArrayList<MenuItem> implements Parcelable {
 		for(int i=0;i<this.size();i++) {
 			noDupList.add(get(i).getCategory());
 		}
-		categoriesList = new ArrayList<String>();
-		categoriesList.addAll(noDupList);
+		mCategoriesList = new ArrayList<String>();
+		mCategoriesList.addAll(noDupList);
 		
-		return categoriesList;
+		return mCategoriesList;
 	}
 	// Gets every item with first letter that matches the provided char
 	// Currently Case-Insensitive
@@ -104,6 +105,14 @@ public class MenuItemList extends ArrayList<MenuItem> implements Parcelable {
 			}
 		}
 		return courseList;
+	}
+	
+	public int getNumCourses() {
+		return mNumCourses;
+	}
+	
+	public void incrementCourses() {
+		mNumCourses++;
 	}
 	
 	//Parcelable Interface Methods
